@@ -1,0 +1,39 @@
+{
+    "name": "gpx-viewer",
+    "version": "1.0.0",
+    "description": "Simple GPX Viewer",
+    "scripts": {
+        "build": "node_modules/gulp/bin/gulp.js"
+    },
+    "private": true,
+    "config": {
+        "bin-links": false
+    },
+    "browserslist": [
+        "last 2 versions",
+        "ie >= 8",
+        "Firefox ESR"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/UksusoFF/gpx-viewer.git"
+    },
+    "author": "UksusoFF",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/UksusoFF/gpx-viewer/issues"
+    },
+    "homepage": "https://github.com/UksusoFF/gpx-viewer#readme",
+    "dependencies": {
+        "bootstrap": "^4.3.1",
+        "font-awesome": "^4.7.0",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^6.1.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-sass": "^4.0.2",
+        "jquery": "^3.4.1",
+        "jquery-colorbox": "^1.6.4",
+        "merge-stream": "^2.0.0",
+        "popper.js": "^1.15.0"
+    }
+}
