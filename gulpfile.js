@@ -1,62 +1,96 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
-    merge = require('merge-stream'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    sourcemaps = require('gulp-sourcemaps'),
+    typescript = require('gulp-typescript');
 
-function buildScripts() {
+let path = {
+    target: {
+        dest: 'resources',
+    },
+    sources: {
+        scripts: [
+            'assets/scripts/**/*.ts',
+        ],
+        styles: [
+            'assets/styles/bootstrap.scss',
+        ],
+    },
+};
+
+function vendorScripts() {
     return gulp
         .src([
-            'node_modules/jquery-colorbox/jquery.colorbox.js',
-            'node_modules/bootstrap/js/dist/util.js',
-            'node_modules/bootstrap/js/dist/collapse.js',
-            'node_modules/bootstrap/js/dist/dropdown.js',
-            'scripts/**/*.js',
+            'node_modules/leaflet/dist/leaflet.js',
         ])
-        .pipe(concat('scripts.js'))
-        .pipe(gulp.dest('build'));
+        .pipe(concat('vendor.js'))
+        .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
 
-function buildStyles() {
-    let stream = merge();
-
-    [
-        'blue',
-        'orange',
-    ].forEach(function(name) {
-        stream.add(gulp
-            .src([
-                'node_modules/jquery-colorbox/example3/colorbox.css',
-                `styles/bootstrap_${name}.scss`,
-            ])
-            .pipe(sass({
-                outputStyle: 'compressed'
-            }))
-            .pipe(concat(`styles_${name}.css`))
-            .pipe(autoprefixer())
-            .pipe(gulp.dest('build')))
-    });
-
-    return stream;
+function appScripts() {
+    return gulp
+        .src(path.sources.scripts)
+        .pipe(sourcemaps.init())
+        .pipe(typescript({
+            target: 'es5',
+            typeRoots: [
+                'node_modules/@types/*'
+            ],
+            outFile: 'app.js',
+            strict: true,
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
 
-function buildFonts() {
-    return gulp.src([
-        'node_modules/font-awesome/fonts/fontawesome-webfont.*'])
-        .pipe(gulp.dest('fonts'));
+function vendorStyles() {
+    return gulp
+        .src([
+            'node_modules/leaflet/dist/leaflet.css',
+        ])
+        .pipe(concat('vendor.css'))
+        .pipe(gulp.dest(`${path.target.dest}/styles`));
+}
+
+function appStyles() {
+    return gulp
+        .src(path.sources.styles)
+        .pipe(sass({
+            outputStyle: 'compressed',
+        }))
+        .pipe(autoprefixer())
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest(`${path.target.dest}/styles`));
+}
+
+function vendorFonts() {
+    return gulp
+        .src([
+            'node_modules/font-awesome/fonts/fontawesome-webfont.*'
+        ])
+        .pipe(gulp.dest(`${path.target.dest}/fonts`));
+}
+
+function vendorImages() {
+    return gulp
+        .src([
+            'node_modules/leaflet/dist/images/*'
+        ])
+        .pipe(gulp.dest(`${path.target.dest}/styles/images`));
 }
 
 gulp.task('watch', () => {
     gulp.watch([
-        'scripts/**/*.js',
+        path.sources.scripts,
     ], {
         usePolling: true
-    }, buildScripts);
+    }, appScripts);
     gulp.watch([
-        'styles/**/*.scss',
+        path.sources.styles,
     ], {
         usePolling: true
-    }, buildStyles);
+    }, appStyles);
 });
 
-gulp.task('default', gulp.series(buildScripts, buildStyles, buildFonts));
+gulp.task('default', gulp.series(vendorScripts, appScripts, vendorStyles, appStyles, vendorFonts, vendorImages));
