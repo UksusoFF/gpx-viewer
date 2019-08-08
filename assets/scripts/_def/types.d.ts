@@ -1,6 +1,6 @@
-namespace Type {
+declare namespace Type {
 
-    export interface Point {
+    interface Point {
         lat: number;
         lon: number;
     }

@@ -1,5 +1,5 @@
-///<reference path="types.ts"/>
-///<reference path="leaflet.plugins.d.ts"/>
+///<reference path="_def/leaflet.plugins.d.ts"/>
+///<reference path="_def/types.d.ts"/>
 ///<reference types="leaflet" />
 
 let point = {
@@ -9,20 +9,29 @@ let point = {
 
 console.log(point);
 
-let map = L.map('map').setView([51.505, -0.09], 13);
-
-map.setView(new L.LatLng(51.505, -0.09), 13);
-
-let layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+let osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-//layer.addTo(map);
 
 let yandex = L.yandex();
 
-yandex.addTo(map);
+
+let map = L.map('map', {
+    layers: [yandex],
+}).setView([51.505, -0.09], 13);
+
+var baseMaps = {
+    "Yandex": yandex,
+    "OSM": osm,
+};
+
+L.control.layers(baseMaps).addTo(map);
+
+
+map.setView(new L.LatLng(51.505, -0.09), 13);
+
 
 // add marker
 var marker = new L.Marker(new L.LatLng(51.5, -0.09));
