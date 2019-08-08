@@ -37,6 +37,8 @@
         "jquery": "^3.4.1",
         "jquery-colorbox": "^1.6.4",
         "leaflet": "^1.5.1",
+        "leaflet-filelayer": "^1.2.0",
+        "leaflet-plugins": "^3.3.0",
         "merge-stream": "^2.0.0",
         "popper.js": "^1.15.0",
         "typescript": "^3.5.3"

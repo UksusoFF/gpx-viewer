@@ -23,6 +23,7 @@ function vendorScripts() {
     return gulp
         .src([
             'node_modules/leaflet/dist/leaflet.js',
+            'node_modules/leaflet-plugins/layer/tile/Yandex.js',
         ])
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
