@@ -2,6 +2,6 @@ import * as Leaflet from "leaflet";
 
 declare global {
     namespace L {
-        function yandex(): Leaflet.Layer;
+        function yandex(options?: any): Leaflet.Layer;
     }
 }

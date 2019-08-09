@@ -24,6 +24,7 @@ function vendorScripts() {
         .src([
             'node_modules/leaflet/dist/leaflet.js',
             'node_modules/leaflet-plugins/layer/tile/Yandex.js',
+            'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
         ])
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
@@ -49,6 +50,7 @@ function vendorStyles() {
     return gulp
         .src([
             'node_modules/leaflet/dist/leaflet.css',
+            'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css',
         ])
         .pipe(concat('vendor.css'))
         .pipe(gulp.dest(`${path.target.dest}/styles`));
@@ -76,7 +78,8 @@ function vendorFonts() {
 function vendorImages() {
     return gulp
         .src([
-            'node_modules/leaflet/dist/images/*'
+            'node_modules/leaflet/dist/images/*',
+            'node_modules/leaflet.awesome-markers/dist/images/*'
         ])
         .pipe(gulp.dest(`${path.target.dest}/styles/images`));
 }

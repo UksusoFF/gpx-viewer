@@ -1,63 +1,6 @@
-///<reference path="_def/leaflet.plugins.d.ts"/>
-///<reference path="_def/types.d.ts"/>
-///<reference types="leaflet" />
+///<reference path="map.ts"/>
 
-let point = {
-    lat: 12,
-    lon: 123
-} as Type.Point;
-
-console.log(point);
-
-let osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-
-
-let yandex = L.yandex();
-
-
-let map = L.map('map', {
-    layers: [
-        osm,
-        yandex
-    ],
-}).setView([51.505, -0.09], 13);
-
-var baseMaps = {
-    "Yandex": yandex,
-    "OSM": osm,
-};
-
-L.control.layers(baseMaps).addTo(map);
-
-map.setView(new L.LatLng(51.505, -0.09), 13);
-
-
-// add marker
-var marker = new L.Marker(new L.LatLng(51.5, -0.09));
-marker.addTo(map).bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-
-// add circle
-var circle = new L.Circle(new L.LatLng(51.508, -0.11), 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map).bindPopup("I am a circle.");
-
-// popup on mapclick
-var popup = new L.Popup();
-
-map.on('click', function(e: L.LeafletEvent) {
-
-    let ee = e as L.LocationEvent;
-
-    popup
-        .setLatLng(ee.latlng)
-        .setContent("You clicked the map at " + ee.latlng.toString())
-        .openOn(map);
-});
+new App.MapController('map');
 
 //https://github.com/mpetazzoni/leaflet-gpx
 //https://github.com/Luuka/gpx-parser
