@@ -3,7 +3,10 @@ let gulp = require('gulp'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
-    typescript = require('gulp-typescript');
+    typescript = require('gulp-typescript'),
+    tsify = require('tsify'),
+    source = require('vinyl-source-stream'),
+    browserify = require('browserify');
 
 let path = {
     target: {
@@ -23,6 +26,7 @@ function vendorScripts() {
     return gulp
         .src([
             'node_modules/leaflet/dist/leaflet.js',
+            //'node_modules/leaflet-omnivore/leaflet-omnivore.js',
             'node_modules/leaflet-plugins/layer/tile/Yandex.js',
             'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
         ])
@@ -31,17 +35,39 @@ function vendorScripts() {
 }
 
 function appScripts() {
+    /*
     return gulp
         .src(path.sources.scripts)
         .pipe(sourcemaps.init())
         .pipe(typescript({
-            target: 'es5',
+            target: 'es6',
             typeRoots: [
                 'node_modules/@types/*'
             ],
-            outFile: 'app.js',
+            module: 'commonjs',
             strict: true,
+            removeComments: true,
         }))
+        .pipe(babel({
+            presets: [
+                ["@babel/preset-env", {
+                    "targets":  "> 0.25%, not dead"
+                }]
+            ]
+        }))
+        .pipe(concat('app.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(`${path.target.dest}/scripts`));*/
+
+
+    return browserify('assets/scripts/index.ts',
+        {
+            debug: true
+        })
+        //.on('error',console.error.bind(console))
+        .plugin(tsify)
+        .bundle()
+        .pipe(source('all.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }

@@ -53,7 +53,21 @@ namespace App {
             } as Type.Point)
         }
 
-        public pointAdd(point: Type.Point) {
+        public layerAdd(layer: L.Layer) {
+            let g = new L.LayerGroup([
+                layer
+            ]);
+            L.geoJSON(g.toGeoJSON(),{
+                onEachFeature: (e: any) => {
+                    console.log(e);
+                }
+            });
+
+
+            layer.addTo(this.map);
+        }
+
+        private pointAdd(point: Type.Point) {
             let ll = new L.LatLng(point.lat, point.lon);
 
             let marker = new L.Marker(ll, {
