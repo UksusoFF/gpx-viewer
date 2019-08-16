@@ -6,7 +6,8 @@ let gulp = require('gulp'),
     typescript = require('gulp-typescript'),
     tsify = require('tsify'),
     source = require('vinyl-source-stream'),
-    browserify = require('browserify');
+    browserify = require('browserify'),
+    babelify = require('browserify');
 
 let path = {
     target: {
@@ -14,7 +15,7 @@ let path = {
     },
     sources: {
         scripts: [
-            'assets/scripts/**/*.ts',
+            'assets/scripts/src/**/*.ts',
         ],
         styles: [
             'assets/styles/bootstrap.scss',
@@ -26,7 +27,6 @@ function vendorScripts() {
     return gulp
         .src([
             'node_modules/leaflet/dist/leaflet.js',
-            //'node_modules/leaflet-omnivore/leaflet-omnivore.js',
             'node_modules/leaflet-plugins/layer/tile/Yandex.js',
             'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
         ])
@@ -34,40 +34,43 @@ function vendorScripts() {
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
 
+function ven() {
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: [
+            'assets/scripts/src/index.ts',
+        ],
+        cache: {},
+        packageCache: {}
+    })
+        .plugin(tsify)
+        .transform('babelify', {
+            global: true,
+            presets: [
+                '@babel/preset-env'
+            ]
+        })
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest(`${path.target.dest}/scripts`));
+}
+
 function appScripts() {
-    /*
     return gulp
-        .src(path.sources.scripts)
+        .src([
+            'assets/scripts/src/index.ts'
+        ])
         .pipe(sourcemaps.init())
         .pipe(typescript({
-            target: 'es6',
+            target: 'es5',
             typeRoots: [
-                'node_modules/@types/*'
+                './node_modules/@types/*',
+                './assets/scripts/@types/*',
             ],
-            module: 'commonjs',
+            //outFile: 'app.js',
             strict: true,
-            removeComments: true,
         }))
-        .pipe(babel({
-            presets: [
-                ["@babel/preset-env", {
-                    "targets":  "> 0.25%, not dead"
-                }]
-            ]
-        }))
-        .pipe(concat('app.js'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(`${path.target.dest}/scripts`));*/
-
-
-    return browserify('assets/scripts/index.ts',
-        {
-            debug: true
-        })
-        //.on('error',console.error.bind(console))
-        .plugin(tsify)
-        .bundle()
-        .pipe(source('all.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
