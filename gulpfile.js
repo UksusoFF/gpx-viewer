@@ -1,13 +1,12 @@
-let gulp = require('gulp'),
-    autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
-    sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps'),
-    typescript = require('gulp-typescript'),
-    tsify = require('tsify'),
-    source = require('vinyl-source-stream'),
-    browserify = require('browserify'),
-    babelify = require('browserify');
+const autoprefixer = require('gulp-autoprefixer');
+const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
+const concat = require('gulp-concat');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const source = require('vinyl-source-stream');
+const sourcemaps = require('gulp-sourcemaps');
+const tsify = require('tsify');
 
 let path = {
     target: {
@@ -15,7 +14,7 @@ let path = {
     },
     sources: {
         scripts: [
-            'assets/scripts/src/**/*.ts',
+            'assets/scripts/src/index.ts',
         ],
         styles: [
             'assets/styles/bootstrap.scss',
@@ -34,44 +33,17 @@ function vendorScripts() {
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
 
-function ven() {
-    return browserify({
-        basedir: '.',
-        debug: true,
-        entries: [
-            'assets/scripts/src/index.ts',
-        ],
-        cache: {},
-        packageCache: {}
-    })
+function appScripts() {
+    return browserify(path.sources.scripts)
         .plugin(tsify)
-        .transform('babelify', {
-            global: true,
-            presets: [
-                '@babel/preset-env'
-            ]
-        })
+        .transform('babelify')
         .bundle()
         .pipe(source('app.js'))
-        .pipe(gulp.dest(`${path.target.dest}/scripts`));
-}
-
-function appScripts() {
-    return gulp
-        .src([
-            'assets/scripts/src/index.ts'
-        ])
-        .pipe(sourcemaps.init())
-        .pipe(typescript({
-            target: 'es5',
-            typeRoots: [
-                './node_modules/@types/*',
-                './assets/scripts/@types/*',
-            ],
-            //outFile: 'app.js',
-            strict: true,
+        .pipe(buffer())
+        .pipe(sourcemaps.init({
+            loadMaps: true
         }))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(`${path.target.dest}/scripts`));
 }
 

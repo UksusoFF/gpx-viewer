@@ -1,10 +1,8 @@
-import * as GPX from 'gpx-parser-builder';
+import GPX from "./gpx/gpx";
 import { MapController } from './map';
 import { FileReaderController } from "./file_reader";
 
 let map = new MapController('map');
-
-(window as any).gpx = GPX;
 
 let input = <HTMLInputElement>document.getElementById('gpx');
 
@@ -23,12 +21,12 @@ if (input !== null) {
 
                 console.log();
 
-                window.console.dir(gpx.metadata);
-                window.console.dir(gpx.wpt);
-                window.console.dir(gpx.trk);
+                console.dir(gpx!.metadata!);
+                console.dir(gpx!.wpt!);
+                console.dir(gpx!.trk!);
 
 // Build gpx
-                window.console.log(gpx.toString());
+                console.log(gpx!.toString({}));
             }
         }
     );

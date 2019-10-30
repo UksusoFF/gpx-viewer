@@ -1,0 +1,9 @@
+{
+    "files": [
+        "assets/scripts/src/index.ts"
+    ],
+    "compilerOptions": {
+        "strict": true,
+        "target": "es2015"
+    }
+}
