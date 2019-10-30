@@ -1,6 +1,6 @@
-import GPX from "./gpx/gpx";
+import GPXTool from './gpx/gpx';
 import { MapController } from './map';
-import { FileReaderController } from "./file_reader";
+import { FileReaderController } from './file_reader';
 
 let map = new MapController('map');
 
@@ -11,30 +11,18 @@ if (input !== null) {
         input,
         (content) => {
             if (content !== null) {
-                //console.log(content);
-                //console.log(omnivore.gpx.parse(content));
-                //map.layerAdd(omnivore.gpx.parse(content));
+                let gpx = GPXTool.parse(content);
 
 
-// Parse gpx
-                const gpx = GPX.parse(content);
-
-                console.log();
+                console.log(gpx!);
 
                 console.dir(gpx!.metadata!);
-                console.dir(gpx!.wpt!);
-                console.dir(gpx!.trk!);
+                console.dir(gpx!.wpt);
+                console.dir(gpx!.trk);
 
-// Build gpx
-                console.log(gpx!.toString({}));
+                console.log(GPXTool.build(gpx!));
             }
         }
     );
 }
 
-//https://github.com/mpetazzoni/leaflet-gpx
-//https://github.com/Luuka/gpx-parser
-//https://stackoverflow.com/questions/28196106/export-gpx-file-from-leaflet
-//https://github.com/tyrasd/togpx
-//https://github.com/Sibyx/phpGPX
-//https://github.com/kf99916/gpx-parser-builder
