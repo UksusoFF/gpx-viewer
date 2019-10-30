@@ -32,7 +32,7 @@ export default class Route {
             if (!Array.isArray(object.rtept)) {
                 this.rtept = [object.rtept];
             }
-            this.rtept = object.rtept.map((pt:any) => new Waypoint(pt));
+            this.rtept = object.rtept.map((pt: any) => new Waypoint(pt));
         }
     }
 }

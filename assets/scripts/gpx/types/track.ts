@@ -31,7 +31,7 @@ export default class Track {
             if (!Array.isArray(object.trkseg)) {
                 object.trkseg = [object.trkseg];
             }
-            this.trkseg = object.trkseg.map((seg:any) => new TrackSegment(seg));
+            this.trkseg = object.trkseg.map((seg: any) => new TrackSegment(seg));
         }
     }
 }
