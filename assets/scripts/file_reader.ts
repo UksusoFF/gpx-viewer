@@ -4,20 +4,20 @@ class FileReaderController {
         private input: HTMLInputElement,
         private changed: (content: string | null) => void
     ) {
-        this.input.onchange = () => {
+        this.input.onchange = (): void => {
             let file = this.input.files !== null && this.input.files[0] !== null ? this.input.files[0] : null;
 
             if (file !== null) {
                 let reader = new FileReader();
                 reader.readAsText(file, 'UTF-8');
-                reader.onload = () => {
+                reader.onload = (): void => {
                     if (reader.result !== null) {
                         this.changed(reader.result.toString());
                     } else {
                         this.changed(null);
                     }
                 };
-                reader.onerror = () => {
+                reader.onerror = (): void => {
                     this.changed(null);
                 };
             } else {

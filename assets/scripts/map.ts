@@ -6,16 +6,12 @@ import 'leaflet.awesome-markers';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
 
-declare namespace Type {
+interface MapPoint {
+    lat: number;
+    lon: number;
 
-    interface Point {
-        lat: number;
-        lon: number;
-
-        name: string;
-        icon: string;
-    }
-
+    name: string;
+    icon: string;
 }
 
 interface IconsStorageObject {
@@ -37,7 +33,7 @@ class MapController {
     };
 
     constructor(
-        private id: string,
+        private container: HTMLElement,
     ) {
         this.layers = {
             'Yandex Map': new L.Yandex('map'),
@@ -47,7 +43,7 @@ class MapController {
             }),
         };
 
-        this.map = L.map(this.id, {
+        this.map = L.map(this.container, {
             center: [51.505, -0.09],
             zoom: 13,
             zoomAnimation: true,
@@ -60,7 +56,7 @@ class MapController {
             lon: -0.09,
             name: '123',
             icon: 'star',
-        } as Type.Point);
+        } as MapPoint);
     }
 
     public layerAdd(layer: L.Layer) {
@@ -77,7 +73,7 @@ class MapController {
         layer.addTo(this.map);
     }
 
-    private pointAdd(point: Type.Point) {
+    public pointAdd(point: MapPoint) {
         let ll = new L.LatLng(point.lat, point.lon);
 
         let marker = new L.Marker(ll, {
@@ -116,4 +112,4 @@ class MapController {
             }*/
 }
 
-export {MapController};
+export { MapController, MapPoint };

@@ -1,27 +1,30 @@
 import GPXTool from './gpx/gpx';
-import { MapController } from './map';
+import { MapController, MapPoint } from './map';
 import { FileReaderController } from './file_reader';
-
-let map = new MapController('map');
+import WayPoint from "./gpx/types/way_point";
 
 let input = <HTMLInputElement>document.getElementById('gpx');
+let container = <HTMLElement>document.getElementById('map');
 
-if (input !== null) {
-    new FileReaderController(
-        input,
-        (content) => {
-            if (content !== null) {
-                let gpx = GPXTool.parse(content);
+let map = new MapController(container);
 
-                console.log(gpx!);
+new FileReaderController(input, (content) => {
+    if (content === null) {
+        throw new Error('Can\'t read input');
+    }
 
-                console.dir(gpx!.metadata!);
-                console.dir(gpx!.wpt);
-                console.dir(gpx!.trk);
+    let gpx = GPXTool.parse(content);
 
-                console.log(GPXTool.build(gpx!));
-            }
-        }
-    );
-}
+    if (gpx === null) {
+        throw new Error('Can\'t parse input');
+    }
 
+    gpx.wpt.forEach((point: WayPoint): void => {
+        map.pointAdd({
+            lat: point.$.lat,
+            lon: point.$.lon,
+            name: point.name,
+            icon: 'star'
+        } as MapPoint)
+    });
+});
