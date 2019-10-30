@@ -20,12 +20,12 @@
         "@typescript-eslint/array-type": [
             "error",
             {
-                "array-type": [
-                    "array"
-                ]
+                "array-type": "array"
             }
         ],
+        "comma-dangle": [ "error", "always-multiline" ],
         "prefer-const": "off",
-        "eol-last": "error"
+        "eol-last": "error",
+        "indent": [ "error", 4 ]
     }
 }

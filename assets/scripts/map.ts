@@ -1,10 +1,10 @@
 /// <reference path="@types/leaflet-plugins.d.ts"/>
 
-import * as L from "leaflet";
+import * as L from 'leaflet';
 
-import "leaflet.awesome-markers";
+import 'leaflet.awesome-markers';
 
-import 'leaflet-plugins/layer/tile/Yandex.js'
+import 'leaflet-plugins/layer/tile/Yandex.js';
 
 declare namespace Type {
 
@@ -23,7 +23,6 @@ interface IconsStorageObject {
 }
 
 class MapController {
-
     private map: L.Map;
 
     private layers: L.Control.LayersObject;
@@ -51,7 +50,7 @@ class MapController {
         this.map = L.map(this.id, {
             center: [51.505, -0.09],
             zoom: 13,
-            zoomAnimation: true
+            zoomAnimation: true,
         });
 
         L.control.layers(this.layers).addTo(this.map);
@@ -60,19 +59,19 @@ class MapController {
             lat: 51.505,
             lon: -0.09,
             name: '123',
-            icon: 'star'
-        } as Type.Point)
+            icon: 'star',
+        } as Type.Point);
     }
 
     public layerAdd(layer: L.Layer) {
         let g = new L.LayerGroup([
-            layer
+            layer,
         ]);
 
         L.geoJSON(g.toGeoJSON(), {
             onEachFeature: (e: any) => {
                 console.log(e);
-            }
+            },
         });
 
         layer.addTo(this.map);
@@ -119,4 +118,4 @@ class MapController {
 }
 
 
-export { MapController };
+export {MapController};

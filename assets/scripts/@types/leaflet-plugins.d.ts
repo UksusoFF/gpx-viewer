@@ -5,11 +5,11 @@ declare module 'leaflet' {
     type YandexMap = 'map' | 'satellite' | 'hybrid' | 'publicMap' | 'publicMapHybrid'
 
     interface IYandexOptions extends L.LayerOptions {
-        minZoom?: number
-        maxZoom?: number
-        attribution?: string
-        opacity?: number
-        traffic?: boolean
+        minZoom?: number;
+        maxZoom?: number;
+        attribution?: string;
+        opacity?: number;
+        traffic?: boolean;
     }
 
     class Yandex extends L.Layer {

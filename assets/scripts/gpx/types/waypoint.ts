@@ -28,7 +28,7 @@ export default class Waypoint {
     constructor(object: any) {
         this.$ = {
             lat: object.$.lat || object.lat || -1,
-            lon: object.$.lon || object.lon || -1
+            lon: object.$.lon || object.lon || -1,
         };
 
         this.ele = object.ele;
