@@ -14,24 +14,13 @@ let path = {
     },
     sources: {
         scripts: [
-            'assets/scripts/src/index.ts',
+            'assets/scripts/index.ts',
         ],
         styles: [
             'assets/styles/bootstrap.scss',
         ],
     },
 };
-
-function vendorScripts() {
-    return gulp
-        .src([
-            'node_modules/leaflet/dist/leaflet.js',
-            'node_modules/leaflet-plugins/layer/tile/Yandex.js',
-            'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
-        ])
-        .pipe(concat('vendor.js'))
-        .pipe(gulp.dest(`${path.target.dest}/scripts`));
-}
 
 function appScripts() {
     return browserify(path.sources.scripts)
@@ -98,4 +87,4 @@ gulp.task('watch', () => {
     }, appStyles);
 });
 
-gulp.task('default', gulp.series(vendorScripts, appScripts, vendorStyles, appStyles, vendorFonts, vendorImages));
+gulp.task('default', gulp.series(appScripts, vendorStyles, appStyles, vendorFonts, vendorImages));

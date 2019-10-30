@@ -1,5 +1,10 @@
+/// <reference path="@types/leaflet-plugins.d.ts"/>
+
 import * as L from "leaflet";
+
 import "leaflet.awesome-markers";
+
+import 'leaflet-plugins/layer/tile/Yandex.js'
 
 declare namespace Type {
 
@@ -36,12 +41,10 @@ class MapController {
         private id: string,
     ) {
         this.layers = {
-            //'Yandex Map': LP.yandex(),
-            //'Yandex Satellite': LP.yandex({
-            //    type: 'satellite'
-            //}),
+            'Yandex Map': new L.Yandex('map'),
+            'Yandex Satellite': new L.Yandex('satellite'),
             'OSM': new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             }),
         };
 
@@ -65,12 +68,12 @@ class MapController {
         let g = new L.LayerGroup([
             layer
         ]);
+
         L.geoJSON(g.toGeoJSON(), {
             onEachFeature: (e: any) => {
                 console.log(e);
             }
         });
-
 
         layer.addTo(this.map);
     }
