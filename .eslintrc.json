@@ -27,6 +27,8 @@
         "prefer-const": "off",
         "eol-last": "error",
         "indent": [ "error", 4 ],
-        "no-multiple-empty-lines": ["error", {"max": 1}]
+        "no-multiple-empty-lines": ["error", { "max": 1 }],
+        "func-call-spacing": "error",
+        "space-before-function-paren": ["error", "never"]
     }
 }

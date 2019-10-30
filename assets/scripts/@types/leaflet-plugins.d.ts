@@ -4,7 +4,7 @@ declare module 'leaflet' {
 
     type YandexMap = 'map' | 'satellite' | 'hybrid' | 'publicMap' | 'publicMapHybrid'
 
-    interface IYandexOptions extends L.LayerOptions {
+    interface YandexOptions extends L.LayerOptions {
         minZoom?: number;
         maxZoom?: number;
         attribution?: string;
@@ -13,6 +13,6 @@ declare module 'leaflet' {
     }
 
     class Yandex extends L.Layer {
-        constructor(type?: YandexMap, options?: IYandexOptions);
+        constructor(type?: YandexMap, options?: YandexOptions);
     }
 }
