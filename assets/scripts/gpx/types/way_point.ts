@@ -1,6 +1,6 @@
 import Link from './link';
 
-export default class Waypoint {
+export default class WayPoint {
     public $: {
         lat: number;
         lon: number;
@@ -23,7 +23,7 @@ export default class Waypoint {
     public ageofdgpsdata: any;
     public dgpsid: any;
     public extensions: any;
-    public link?: [Link];
+    public link?: Link[];
 
     constructor(object: any) {
         this.$ = {

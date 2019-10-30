@@ -10,7 +10,7 @@ export default class Metadata {
     public keywords: any;
     public extensions: any;
     public author?: Person;
-    public link?: [Link];
+    public link?: Link[];
     public bounds?: Bounds;
     public copyright?: Copyright;
 

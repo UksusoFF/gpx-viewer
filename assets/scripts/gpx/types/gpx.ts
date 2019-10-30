@@ -1,5 +1,5 @@
 import Metadata from './metadata';
-import Waypoint from './waypoint';
+import WayPoint from './way_point';
 import Route from './route';
 import Track from './track';
 import {removeEmpty} from '../utils';
@@ -17,7 +17,7 @@ export default class GPX {
 
     private extensions: any;
     public metadata?: Metadata;
-    public wpt: Waypoint[] = [];
+    public wpt: WayPoint[] = [];
     public rte: Route[] = [];
     public trk: Track[] = [];
 
@@ -34,7 +34,7 @@ export default class GPX {
             if (!Array.isArray(object.wpt)) {
                 object.wpt = [object.wpt];
             }
-            this.wpt = object.wpt.map((wpt: any) => new Waypoint(wpt));
+            this.wpt = object.wpt.map((wpt: any) => new WayPoint(wpt));
         }
 
         if (object.rte) {

@@ -1,4 +1,4 @@
-import TrackSegment from './track-segment';
+import TrackSegment from './track_segment';
 import Link from './link';
 
 export default class Track {
@@ -10,8 +10,8 @@ export default class Track {
     public number: any;
     public type: any;
     public extensions: any;
-    public link?: [Link];
-    public trkseg?: [TrackSegment];
+    public link?: Link[];
+    public trkseg?: TrackSegment[];
 
     constructor(object: any) {
         this.name = object.name;
