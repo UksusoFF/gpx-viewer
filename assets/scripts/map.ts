@@ -103,7 +103,6 @@ class MapController {
     /*
             public init() {
 
-
                 var popup = new L.Popup();
 
                 map.on('click', function(o: L.LeafletEvent) {
@@ -116,6 +115,5 @@ class MapController {
                 });
             }*/
 }
-
 
 export {MapController};

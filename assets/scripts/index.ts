@@ -13,7 +13,6 @@ if (input !== null) {
             if (content !== null) {
                 let gpx = GPXTool.parse(content);
 
-
                 console.log(gpx!);
 
                 console.dir(gpx!.metadata!);

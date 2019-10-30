@@ -15,7 +15,6 @@ const defaultAttributes = {
 export default class GPX {
     private $: any;
 
-
     private extensions: any;
     public metadata?: Metadata;
     public wpt: Waypoint[] = [];

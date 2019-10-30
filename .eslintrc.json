@@ -26,6 +26,7 @@
         "comma-dangle": [ "error", "always-multiline" ],
         "prefer-const": "off",
         "eol-last": "error",
-        "indent": [ "error", 4 ]
+        "indent": [ "error", 4 ],
+        "no-multiple-empty-lines": ["error", {"max": 1}]
     }
 }
