@@ -93,7 +93,7 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup(`<b>Hello world!</b><br />I am a ${point.name}.`);
+            .bindPopup(`<b>Hello world!</b><br />I am a ${point.name} with ${point.lat},${point.lon}.`);
     }
 
     /*
