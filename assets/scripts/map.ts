@@ -44,19 +44,12 @@ class MapController {
         };
 
         this.map = L.map(this.container, {
-            center: [51.505, -0.09],
+            center: [53.2001, 50.15],
             zoom: 13,
             zoomAnimation: true,
         });
 
         L.control.layers(this.layers).addTo(this.map);
-
-        this.pointAdd({
-            lat: 51.505,
-            lon: -0.09,
-            name: '123',
-            icon: 'star',
-        } as MapPoint);
     }
 
     public layerAdd(layer: L.Layer) {
@@ -95,21 +88,6 @@ class MapController {
             .addTo(this.map)
             .bindPopup(`<b>Hello world!</b><br />I am a ${point.name} with ${point.lat},${point.lon}.`);
     }
-
-    /*
-            public init() {
-
-                var popup = new L.Popup();
-
-                map.on('click', function(o: L.LeafletEvent) {
-                    let e = o as L.LocationEvent;
-
-                    popup
-                        .setLatLng(ee.latlng)
-                        .setContent("You clicked the map at " + ee.latlng.toString())
-                        .openOn(map);
-                });
-            }*/
 }
 
 export { MapController, MapPoint };

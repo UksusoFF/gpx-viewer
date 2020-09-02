@@ -1,7 +1,16 @@
 body {
-
     #map {
+        float: left;
         height: 100vh;
+        width: calc(100% - 250px);
+    }
+
+    #list {
+        float: left;
+        height: 100vh;
+        width: 250px;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
 }
