@@ -44,6 +44,7 @@
         "jquery": "^3.4.1",
         "jquery-colorbox": "^1.6.4",
         "leaflet": "^1.5.1",
+        "leaflet-iconmaterial": "^1.0.1",
         "leaflet-plugins": "^3.3.0",
         "leaflet.awesome-markers": "^2.0.5",
         "popper.js": "^1.15.0",

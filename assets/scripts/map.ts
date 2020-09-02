@@ -5,6 +5,7 @@ import * as L from 'leaflet';
 import 'leaflet.awesome-markers';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
+import 'leaflet-iconmaterial/dist/leaflet.icon-material.js';
 
 interface MapPoint {
     lat: number;
@@ -15,7 +16,7 @@ interface MapPoint {
 }
 
 interface IconsStorageObject {
-    [name: string]: L.AwesomeMarkers.Icon;
+    [name: string]: L.IconMaterial.Icon;
 }
 
 class MapController {
@@ -24,11 +25,8 @@ class MapController {
     private layers: L.Control.LayersObject;
 
     private icons: IconsStorageObject = {
-        'star': L.AwesomeMarkers.icon({
-            icon: 'star',
-            markerColor: 'orange',
-            prefix: 'fa',
-            iconColor: 'black',
+        'star': L.IconMaterial.icon({
+            icon: 'parking',
         }),
     };
 

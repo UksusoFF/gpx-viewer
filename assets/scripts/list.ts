@@ -38,8 +38,9 @@ class ItemPopup {
           <div class="form-group">
             <label for="list-item-modal-icon" class="col-form-label">Example select</label>
             <select class="form-control" id="list-item-modal-icon" required>
-              <option>1</option>
-              <option>2</option>
+              <option value="special_house"><i class="fa fa-home fa-fw"></i></option>
+              <option value="special_star_stroked"><i class="fa fa-star-o fa-fw"></i></option>
+              <option value="parking">Parking</option>
               <option>3</option>
               <option>4</option>
               <option>5</option>
