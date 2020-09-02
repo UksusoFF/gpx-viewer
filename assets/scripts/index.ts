@@ -27,13 +27,9 @@ new FileReaderController(input, (content) => {
             lon: point.$.lon,
             name: point.name,
             icon: 'star'
-        } as MapPoint)
-        list.itemAdd({
-            lat: point.$.lat,
-            lon: point.$.lon,
-            name: point.name,
-            type: point.type,
-            icon: 'star'
-        } as ListItem)
+        } as MapPoint);
+        list.itemAdd(point);
     });
+
+    console.log(GPXTool.build(gpx));
 });
