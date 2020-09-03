@@ -4,7 +4,7 @@ import {
     MapPoint,
 } from './map';
 import {
-    ListController
+    ListController,
 } from './list';
 import {
     FileReaderController,

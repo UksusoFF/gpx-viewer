@@ -1,6 +1,9 @@
 import * as $ from 'jquery';
 import 'bootstrap';
 import WayPoint from './gpx/types/way_point';
+import {
+    Icon,
+} from './icon';
 
 interface ListItem {
     lat: number;
@@ -36,15 +39,57 @@ class ItemPopup {
             <input type="text" class="form-control" id="list-item-modal-name" value="${ this.item.name }" required>
           </div>
           <div class="form-group">
-            <label for="list-item-modal-icon" class="col-form-label">Example select</label>
-            <select class="form-control" id="list-item-modal-icon" required>
-              <option value="special_house"><i class="fa fa-home fa-fw"></i></option>
-              <option value="special_star_stroked"><i class="fa fa-star-o fa-fw"></i></option>
-              <option value="parking">Parking</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+            <label class="col-form-label">Icon:</label>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-home" value="special_house">
+              <label class="form-check-label" for="list-item-modal-icon-home">
+                <i class="mdi mdi-home"></i>
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-star-outline" value="special_star_stroked">
+              <label class="form-check-label" for="list-item-modal-icon-star-outline">
+                <i class="mdi mdi-star-outline"></i>
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-parking" value="parking">
+              <label class="form-check-label" for="list-item-modal-icon-parking">
+                <i class="mdi mdi-parking"></i>
+              </label>
+            </div>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-pine-tree" value="park">
+              <label class="form-check-label" for="list-item-modal-icon-pine-tree">
+                <i class="mdi mdi-pine-tree"></i>
+              </label>
+            </div>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-silverware" value="restaurants">
+              <label class="form-check-label" for="list-item-modal-icon-silverware">
+                <i class="mdi mdi-silverware"></i>
+              </label>
+            </div>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-asterisk" value="tourism_viewpoint">
+              <label class="form-check-label" for="list-item-modal-icon-asterisk">
+                <i class="mdi mdi-asterisk"></i>
+              </label>
+            </div>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="list-item-modal-icon" id="list-item-modal-icon-camera" value="special_photo_camera">
+              <label class="form-check-label" for="list-item-modal-icon-camera">
+                <i class="mdi mdi-camera"></i>
+              </label>
+            </div>
+            
           </div>
       </div>
       <div class="modal-footer">
@@ -101,9 +146,10 @@ class ListController {
 
     public itemAdd(item: WayPoint): void {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
+        let icon = Icon.getIcon(item.extensions.icon);
 
         let node = document.createElement('p');
-        node.innerText = `* ${ item.name }`;
+        node.innerHTML = `* <i class="mdi mdi-${ icon }"></i> ${ item.name }`;
         node.onclick = (): void => {
             (new ItemPopup(item)).show();
         };

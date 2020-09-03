@@ -5,7 +5,6 @@ import * as L from 'leaflet';
 import 'leaflet.awesome-markers';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
-import 'leaflet-iconmaterial/dist/leaflet.icon-material.js';
 
 interface MapPoint {
     lat: number;
