@@ -5,32 +5,15 @@ import * as L from 'leaflet';
 import 'leaflet.awesome-markers';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
-
-interface MapPoint {
-    lat: number;
-    lon: number;
-
-    name: string;
-    icon: string;
-}
-
-interface IconsStorageObject {
-    [name: string]: L.AwesomeMarkers.Icon;
-}
+import WayPoint from './gpx/types/way_point';
+import {
+    Icon,
+} from './icon';
 
 class MapController {
     private map: L.Map;
 
     private layers: L.Control.LayersObject;
-
-    private icons: IconsStorageObject = {
-        'star': L.AwesomeMarkers.icon({
-            icon: 'parking',
-            markerColor: 'orange',
-            prefix: 'mdi',
-            iconColor: 'black',
-        }),
-    };
 
     constructor(
         private container: HTMLElement,
@@ -69,17 +52,24 @@ class MapController {
         layer.addTo(this.map);
     }
 
-    public pointAdd(point: MapPoint) {
-        let ll = new L.LatLng(point.lat, point.lon);
+    public pointAdd(point: WayPoint) {
+        let ll = new L.LatLng(point.$.lat, point.$.lon);
 
         let marker = new L.Marker(ll, {
             draggable: true,
             autoPan: true,
-            icon: this.icons[point.icon],
+            icon: L.AwesomeMarkers.icon({
+                icon: Icon.getIcon(point.extensions.icon),
+                markerColor: 'orange',
+                prefix: 'mdi',
+                iconColor: 'black',
+            }),
         });
 
         marker.on('dragend', function() {
             if (!confirm('Save new position?')) {
+                point.$.lat = ll.lat;
+                point.$.lon = ll.lng;
                 marker.setLatLng(ll);
             } else {
                 ll = marker.getLatLng();
@@ -89,11 +79,10 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup(`<b>Hello world!</b><br />I am a ${ point.name } with ${ point.lat },${ point.lon }.`);
+            .bindPopup(`${ point.name }<br />${ point.$.lat },${ point.$.lon }ы`);
     }
 }
 
 export {
     MapController,
-    MapPoint,
 };

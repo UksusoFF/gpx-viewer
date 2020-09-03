@@ -5,15 +5,6 @@ import {
     Icon,
 } from './icon';
 
-interface ListItem {
-    lat: number;
-    lon: number;
-
-    name: string;
-    type: string;
-    icon: string;
-}
-
 class ItemPopup {
 
     constructor(
@@ -160,5 +151,4 @@ class ListController {
 
 export {
     ListController,
-    ListItem,
 };

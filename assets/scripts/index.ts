@@ -1,7 +1,6 @@
 import GPXTool from './gpx/gpx';
 import {
     MapController,
-    MapPoint,
 } from './map';
 import {
     ListController,
@@ -29,12 +28,7 @@ new FileReaderController(input, (content) => {
 
     gpx.wpt.forEach((point: WayPoint): void => {
         console.log(point);
-        map.pointAdd({
-            lat: point.$.lat,
-            lon: point.$.lon,
-            name: point.name,
-            icon: 'star',
-        } as MapPoint);
+        map.pointAdd(point);
         list.itemAdd(point);
     });
 
