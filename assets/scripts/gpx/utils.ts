@@ -1,5 +1,8 @@
 function removeEmpty(obj: any): void {
-    Object.entries(obj).forEach(([key, val]) => {
+    Object.entries(obj).forEach(([
+        key,
+        val,
+    ]) => {
         if (val && val instanceof Object) {
             removeEmpty(val);
         } else if (val == null) {
@@ -9,7 +12,10 @@ function removeEmpty(obj: any): void {
 }
 
 function allDatesToISOString(obj: any): void {
-    Object.entries(obj).forEach(([key, val]) => {
+    Object.entries(obj).forEach(([
+        key,
+        val,
+    ]) => {
         if (val) {
             if (val instanceof Date) {
                 obj[key] = val.toISOString();
@@ -20,4 +26,7 @@ function allDatesToISOString(obj: any): void {
     });
 }
 
-export {removeEmpty, allDatesToISOString};
+export {
+    removeEmpty,
+    allDatesToISOString,
+};

@@ -5,13 +5,21 @@ import Bounds from './bounds';
 
 export default class Metadata {
     public name: string;
+
     public desc: string;
+
     public time: Date;
+
     public keywords: any;
+
     public extensions: any;
+
     public author?: Person;
+
     public link?: Link[];
+
     public bounds?: Bounds;
+
     public copyright?: Copyright;
 
     constructor(object: any) {
@@ -25,9 +33,13 @@ export default class Metadata {
         }
         if (object.link) {
             if (!Array.isArray(object.link)) {
-                object.link = [object.link];
+                object.link = [
+                    object.link,
+                ];
             }
-            this.link = object.link.map((l: any) => new Link(l));
+            this.link = object.link.map((l: any) => {
+                return new Link(l);
+            });
         }
         if (object.bounds) {
             this.bounds = new Bounds(object.bounds);

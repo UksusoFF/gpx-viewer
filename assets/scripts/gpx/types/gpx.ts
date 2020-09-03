@@ -2,7 +2,9 @@ import Metadata from './metadata';
 import WayPoint from './way_point';
 import Route from './route';
 import Track from './track';
-import {removeEmpty} from '../utils';
+import {
+    removeEmpty,
+} from '../utils';
 
 const defaultAttributes = {
     'version': '1.1',
@@ -16,9 +18,13 @@ export default class GPX {
     private $: any;
 
     private extensions: any;
+
     public metadata?: Metadata;
+
     public wpt: WayPoint[] = [];
+
     public rte: Route[] = [];
+
     public trk: Track[] = [];
 
     constructor(object: any) {
@@ -32,23 +38,35 @@ export default class GPX {
 
         if (object.wpt) {
             if (!Array.isArray(object.wpt)) {
-                object.wpt = [object.wpt];
+                object.wpt = [
+                    object.wpt,
+                ];
             }
-            this.wpt = object.wpt.map((wpt: any) => new WayPoint(wpt));
+            this.wpt = object.wpt.map((wpt: any) => {
+                return new WayPoint(wpt);
+            });
         }
 
         if (object.rte) {
             if (!Array.isArray(object.rte)) {
-                object.rte = [object.rte];
+                object.rte = [
+                    object.rte,
+                ];
             }
-            this.rte = object.rte.map((rte: any) => new Route(rte));
+            this.rte = object.rte.map((rte: any) => {
+                return new Route(rte);
+            });
         }
 
         if (object.trk) {
             if (!Array.isArray(object.trk)) {
-                object.trk = [object.trk];
+                object.trk = [
+                    object.trk,
+                ];
             }
-            this.trk = object.trk.map((trk: any) => new Track(trk));
+            this.trk = object.trk.map((trk: any) => {
+                return new Track(trk);
+            });
         }
 
         removeEmpty(this);

@@ -16,7 +16,7 @@ interface MapPoint {
 }
 
 interface IconsStorageObject {
-    [name: string]: L.IconMaterial.Icon;
+    [name: string]: L.AwesomeMarkers.Icon;
 }
 
 class MapController {
@@ -25,8 +25,11 @@ class MapController {
     private layers: L.Control.LayersObject;
 
     private icons: IconsStorageObject = {
-        'star': L.IconMaterial.icon({
+        'star': L.AwesomeMarkers.icon({
             icon: 'parking',
+            markerColor: 'orange',
+            prefix: 'mdi',
+            iconColor: 'black',
         }),
     };
 
@@ -42,7 +45,10 @@ class MapController {
         };
 
         this.map = L.map(this.container, {
-            center: [53.2001, 50.15],
+            center: [
+                53.2001,
+                50.15,
+            ],
             zoom: 13,
             zoomAnimation: true,
         });
@@ -84,8 +90,11 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup(`<b>Hello world!</b><br />I am a ${point.name} with ${point.lat},${point.lon}.`);
+            .bindPopup(`<b>Hello world!</b><br />I am a ${ point.name } with ${ point.lat },${ point.lon }.`);
     }
 }
 
-export { MapController, MapPoint };
+export {
+    MapController,
+    MapPoint,
+};

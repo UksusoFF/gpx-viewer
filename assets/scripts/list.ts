@@ -1,6 +1,6 @@
-import * as $ from "jquery";
-import "bootstrap";
-import WayPoint from "./gpx/types/way_point";
+import * as $ from 'jquery';
+import 'bootstrap';
+import WayPoint from './gpx/types/way_point';
 
 interface ListItem {
     lat: number;
@@ -25,7 +25,7 @@ class ItemPopup {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">${this.item.name}</h5>
+        <h5 class="modal-title">${ this.item.name }</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,7 +33,7 @@ class ItemPopup {
       <div class="modal-body">
           <div class="form-group">
             <label for="list-item-modal-name" class="col-form-label">Name:</label>
-            <input type="text" class="form-control" id="list-item-modal-name" value="${this.item.name}" required>
+            <input type="text" class="form-control" id="list-item-modal-name" value="${ this.item.name }" required>
           </div>
           <div class="form-group">
             <label for="list-item-modal-icon" class="col-form-label">Example select</label>
@@ -90,7 +90,7 @@ class ListController {
             return this.groups[name];
         } else {
             let group = document.createElement('div');
-            group.innerHTML = `<p class="group-title">${name}</p>`
+            group.innerHTML = `<p class="group-title">${ name }</p>`;
 
             this.groups[name] = group;
             this.wrapper.append(group);
@@ -103,13 +103,16 @@ class ListController {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
 
         let node = document.createElement('p');
-        node.innerText = `* ${item.name}`;
+        node.innerText = `* ${ item.name }`;
         node.onclick = (): void => {
             (new ItemPopup(item)).show();
-        }
+        };
 
         group.append(node);
     }
 }
 
-export { ListController, ListItem };
+export {
+    ListController,
+    ListItem,
+};

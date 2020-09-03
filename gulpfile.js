@@ -61,7 +61,7 @@ function appStyles() {
 function vendorFonts() {
     return gulp
         .src([
-            'node_modules/font-awesome/fonts/fontawesome-webfont.*'
+            'node_modules/@mdi/font/fonts/*'
         ])
         .pipe(gulp.dest(`${path.target.dest}/fonts`));
 }

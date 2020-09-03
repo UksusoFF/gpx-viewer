@@ -1,6 +1,8 @@
 export default class Link {
     private $: any;
+
     private text: any;
+
     private type: any;
 
     constructor(object: any) {

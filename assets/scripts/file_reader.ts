@@ -27,4 +27,6 @@ class FileReaderController {
     }
 }
 
-export { FileReaderController }
+export {
+    FileReaderController,
+};

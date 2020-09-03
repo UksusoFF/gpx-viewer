@@ -4,13 +4,21 @@ import Link from './link';
 export default class Track {
 
     public name: string;
+
     public cmt: string;
+
     public desc: string;
+
     public src: any;
+
     public number: any;
+
     public type: any;
+
     public extensions: any;
+
     public link?: Link[];
+
     public trkseg?: TrackSegment[];
 
     constructor(object: any) {
@@ -23,15 +31,23 @@ export default class Track {
         this.extensions = object.extensions;
         if (object.link) {
             if (!Array.isArray(object.link)) {
-                object.link = [object.link];
+                object.link = [
+                    object.link,
+                ];
             }
-            this.link = object.link.map((l: any) => new Link(l));
+            this.link = object.link.map((l: any) => {
+                return new Link(l);
+            });
         }
         if (object.trkseg) {
             if (!Array.isArray(object.trkseg)) {
-                object.trkseg = [object.trkseg];
+                object.trkseg = [
+                    object.trkseg,
+                ];
             }
-            this.trkseg = object.trkseg.map((seg: any) => new TrackSegment(seg));
+            this.trkseg = object.trkseg.map((seg: any) => {
+                return new TrackSegment(seg);
+            });
         }
     }
 }

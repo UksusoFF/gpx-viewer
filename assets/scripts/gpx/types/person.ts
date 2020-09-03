@@ -2,7 +2,9 @@ import Link from './link';
 
 export default class Person {
     public name: string;
+
     public email: string;
+
     public link: Link;
 
     constructor(object: any) {

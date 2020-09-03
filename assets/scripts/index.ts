@@ -1,8 +1,15 @@
 import GPXTool from './gpx/gpx';
-import { MapController, MapPoint } from './map';
-import { ListController, ListItem } from './list';
-import { FileReaderController } from './file_reader';
-import WayPoint from "./gpx/types/way_point";
+import {
+    MapController,
+    MapPoint,
+} from './map';
+import {
+    ListController
+} from './list';
+import {
+    FileReaderController,
+} from './file_reader';
+import WayPoint from './gpx/types/way_point';
 
 let input = <HTMLInputElement>document.getElementById('gpx');
 
@@ -26,7 +33,7 @@ new FileReaderController(input, (content) => {
             lat: point.$.lat,
             lon: point.$.lon,
             name: point.name,
-            icon: 'star'
+            icon: 'star',
         } as MapPoint);
         list.itemAdd(point);
     });

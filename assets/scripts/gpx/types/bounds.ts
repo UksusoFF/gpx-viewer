@@ -1,7 +1,10 @@
 export default class Bounds {
     private minlat: any;
+
     private minlon: any;
+
     private maxlat: any;
+
     private maxlon: any;
 
     constructor(object: any) {

@@ -7,22 +7,39 @@ export default class WayPoint {
     };
 
     public ele: any;
+
     public time: Date;
+
     public magvar: any;
+
     public geoidheight: any;
+
     public name: string;
+
     public cmt: string;
+
     public desc: string;
+
     public src: any;
+
     public sym: any;
+
     public type: any;
+
     public sat: any;
+
     public hdop: any;
+
     public vdop: any;
+
     public pdop: any;
+
     public ageofdgpsdata: any;
+
     public dgpsid: any;
+
     public extensions: any;
+
     public link?: Link[];
 
     constructor(object: any) {
@@ -50,9 +67,13 @@ export default class WayPoint {
         this.extensions = object.extensions;
         if (object.link) {
             if (!Array.isArray(object.link)) {
-                object.link = [object.link];
+                object.link = [
+                    object.link,
+                ];
             }
-            this.link = object.link.map((l: any) => new Link(l));
+            this.link = object.link.map((l: any) => {
+                return new Link(l);
+            });
         }
     }
 }
