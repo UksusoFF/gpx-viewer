@@ -1,17 +1,27 @@
 body {
 
+    $controls-height: 45px;
+    $sidebar-width: 300px;
+
+    #sidebar {
+        float: left;
+        width: $sidebar-width;
+
+        #controls {
+            height: $controls-height;
+        }
+
+        #list {
+            height: calc(100vh - #{$controls-height});
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+    }
+
     #map {
         float: left;
         height: 100vh;
-        width: calc(100% - 250px);
-    }
-
-    #list {
-        float: left;
-        height: 100vh;
-        width: 250px;
-        overflow-y: scroll;
-        overflow-x: hidden;
+        width: calc(100% - #{$sidebar-width});
     }
 
 }

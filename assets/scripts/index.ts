@@ -9,13 +9,14 @@ import {
     FileReaderController,
 } from './file_reader';
 import WayPoint from './gpx/types/way_point';
+import GPX from "./gpx/types/gpx";
 
 let input = <HTMLInputElement>document.getElementById('gpx');
 
 let map = new MapController(<HTMLElement>document.getElementById('map'));
 let list = new ListController(<HTMLElement>document.getElementById('list'));
 
-new FileReaderController(input, (content) => {
+new FileReaderController(input, (content: string | null) => {
     if (content === null) {
         throw new Error('Can\'t read input');
     }
@@ -32,5 +33,11 @@ new FileReaderController(input, (content) => {
         list.itemAdd(point);
     });
 
-    console.log(GPXTool.build(gpx));
+    let download = <HTMLElement>document.getElementById('download');
+
+    download.onclick = function(): void {
+        let data = 'data:application/javascript;charset=utf-8,' + encodeURIComponent(GPXTool.build(<GPX>gpx));
+
+        download.setAttribute('href', data)
+    };
 });
