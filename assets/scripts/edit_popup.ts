@@ -47,6 +47,8 @@ class EditPopup {
     }
 
     private fill(): void {
+        this.$modal.find('[name=edit-popup-name]').val(this.point.name);
+
         let icon = this.point.extensions?.icon ?? null;
 
         if (icon !== null) {
@@ -54,14 +56,16 @@ class EditPopup {
         } else {
             this.$modal.find('[name="edit-popup-icon"]').first().attr('checked', 'checked');
         }
-
-        this.$modal.find('[name=edit-popup-name]').val(this.point.name);
     }
 
     private save(): void {
-        //TODO: Fix Cannot set property 'icon' of undefined
-        this.point.extensions.icon = String(this.$modal.find('[name="edit-popup-icon"]:checked').val());
         this.point.name = String(this.$modal.find('[name=edit-popup-name]').val());
+
+        if (typeof this.point.extensions === 'undefined') {
+            this.point.extensions = {};
+        }
+
+        this.point.extensions.icon = String(this.$modal.find('[name="edit-popup-icon"]:checked').val());
     }
 
     public show(): void {
