@@ -1,6 +1,6 @@
-import WayPoint from "../gpx/types/way_point";
-import TemplateBuilder from "../template";
-import EditPopup from "../edit_popup";
+import WayPoint from '../gpx/types/way_point';
+import TemplateBuilder from '../template';
+import EditPopup from '../edit_popup';
 
 class MapPopup {
 
@@ -12,7 +12,7 @@ class MapPopup {
         this.popup = (new TemplateBuilder(
             'map-popup-template',
             {
-                point: point
+                point: point,
             }
         )).element();
 

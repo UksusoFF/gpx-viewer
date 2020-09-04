@@ -6,7 +6,7 @@ import {
     FileReaderController,
 } from './file_reader';
 import WayPoint from './gpx/types/way_point';
-import GPX from "./gpx/types/gpx";
+import GPX from './gpx/types/gpx';
 
 let input = <HTMLInputElement>document.getElementById('gpx');
 
@@ -33,8 +33,8 @@ new FileReaderController(input, (content: string | null) => {
     let download = <HTMLElement>document.getElementById('download');
 
     download.onclick = function(): void {
-        let data = 'data:application/javascript;charset=utf-8,' + encodeURIComponent(GPXTool.build(<GPX>gpx));
+        let data = `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(<GPX>gpx)) }`;
 
-        download.setAttribute('href', data)
+        download.setAttribute('href', data);
     };
 });

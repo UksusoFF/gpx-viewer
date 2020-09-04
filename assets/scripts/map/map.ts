@@ -6,7 +6,7 @@ import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
 
 import Icon from '../icon';
-import MapPopup from "./popup";
+import MapPopup from './popup';
 import WayPoint from '../gpx/types/way_point';
 
 class MapController {

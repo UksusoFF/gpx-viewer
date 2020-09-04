@@ -1,6 +1,6 @@
 import WayPoint from './gpx/types/way_point';
 import Icon from './icon';
-import EditPopup from "./edit_popup";
+import EditPopup from './edit_popup';
 
 class ListController {
 
