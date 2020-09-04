@@ -1,10 +1,7 @@
+
 import GPXTool from './gpx/gpx';
-import {
-    MapController,
-} from './map';
-import {
-    ListController,
-} from './list';
+import MapController from './map/map';
+import ListController from './list';
 import {
     FileReaderController,
 } from './file_reader';

@@ -16,8 +16,10 @@ class Icon {
 
         return typeof icon !== 'undefined' ? icon : IconMap['special_star'];
     }
+
+    static getAll(): Record<string, string> {
+        return IconMap;
+    }
 }
 
-export {
-    Icon,
-};
+export default Icon;

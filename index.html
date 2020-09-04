@@ -5,6 +5,66 @@
     <title>Title</title>
     <link rel="stylesheet" href="resources/styles/vendor.css">
     <link rel="stylesheet" href="resources/styles/app.css">
+    <template type="javascript/template" id="map-popup-template">
+        <div class="map-popup">
+            {{ point.name }}<br/>
+            {{ point.$.lat }},{{ point.$.lon }}<br/>
+            <hr>
+            <span class="btn btn-secondary btn-sm" data-action="edit">
+                <i class="mdi mdi-pencil"></i>
+            </span>
+        </div>
+    </template>
+    <template type="javascript/template" id="edit-popup-template">
+        <form class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ point.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="edit-popup-name" class="col-form-label">Name:</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="edit-popup-name"
+                                   id="edit-popup-name"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Icon:</label>
+                            {{#icons}}
+                            <div class="form-check">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       name="edit-popup-icon"
+                                       id="edit-popup-icon-{{ value }}"
+                                       value="{{ value }}">
+                                <label class="form-check-label" for="edit-popup-icon-{{ value }}">
+                                    <i class="mdi mdi-{{ icon }}"></i>
+                                </label>
+                            </div>
+                            {{/icons}}
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </template>
 </head>
 <body>
 <div id="sidebar">
@@ -14,7 +74,8 @@
             <label for="gpx" class="btn btn-secondary mb-0" style="width: 50%;">
                 <i class="mdi mdi-upload"></i> Upload
             </label>
-            <a id="download" href="#" download="MyTracks.gpx" target="_blank" class="btn btn-secondary mb-0" style="width: 50%;">
+            <a id="download" href="#" download="MyTracks.gpx" target="_blank" class="btn btn-secondary mb-0"
+               style="width: 50%;">
                 <i class="mdi mdi-download"></i> Download
             </a>
         </div>

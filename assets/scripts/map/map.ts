@@ -1,14 +1,13 @@
-/// <reference path="@types/leaflet-plugins.d.ts"/>
+/// <reference path="../@types/leaflet-plugins.d.ts"/>
 
 import * as L from 'leaflet';
 
+import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
 
-import 'leaflet-plugins/layer/tile/Yandex.js';
-import WayPoint from './gpx/types/way_point';
-import {
-    Icon,
-} from './icon';
+import Icon from '../icon';
+import MapPopup from "./popup";
+import WayPoint from '../gpx/types/way_point';
 
 class MapController {
     private map: L.Map;
@@ -59,7 +58,7 @@ class MapController {
             draggable: true,
             autoPan: true,
             icon: L.AwesomeMarkers.icon({
-                icon: Icon.getIcon(point.extensions.icon),
+                icon: Icon.getIcon(point.extensions?.icon ?? null),
                 markerColor: 'orange',
                 prefix: 'mdi',
                 iconColor: 'black',
@@ -79,10 +78,8 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup(`${ point.name }<br />${ point.$.lat },${ point.$.lon }ы`);
+            .bindPopup((new MapPopup(point)).popup);
     }
 }
 
-export {
-    MapController,
-};
+export default MapController;
