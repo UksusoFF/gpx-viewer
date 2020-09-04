@@ -17,12 +17,14 @@ class MapController {
     constructor(
         private container: HTMLElement,
     ) {
+        let defaultLayer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        });
+
         this.layers = {
             'Yandex Map': new L.Yandex('map'),
             'Yandex Satellite': new L.Yandex('satellite'),
-            'OSM': new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            }),
+            'OSM': defaultLayer,
         };
 
         this.map = L.map(this.container, {
@@ -32,23 +34,12 @@ class MapController {
             ],
             zoom: 13,
             zoomAnimation: true,
+            layers: [
+                defaultLayer,
+            ],
         });
 
         L.control.layers(this.layers).addTo(this.map);
-    }
-
-    public layerAdd(layer: L.Layer) {
-        let g = new L.LayerGroup([
-            layer,
-        ]);
-
-        L.geoJSON(g.toGeoJSON(), {
-            onEachFeature: (e: any) => {
-                console.log(e);
-            },
-        });
-
-        layer.addTo(this.map);
     }
 
     public pointAdd(point: WayPoint) {
