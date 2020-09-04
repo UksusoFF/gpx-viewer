@@ -1,9 +1,9 @@
 import * as $ from 'jquery';
 import 'bootstrap';
 
+import Icon from './icon';
 import TemplateBuilder from './template';
 import WayPoint from './gpx/types/way_point';
-import Icon from './icon';
 
 class EditPopup {
 

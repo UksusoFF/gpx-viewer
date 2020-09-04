@@ -1,12 +1,9 @@
-
-import GPXTool from './gpx/gpx';
-import MapController from './map/map';
-import ListController from './list';
-import {
-    FileReaderController,
-} from './file_reader';
-import WayPoint from './gpx/types/way_point';
+import FileReaderController from './file_reader';
 import GPX from './gpx/types/gpx';
+import GPXTool from './gpx/gpx';
+import ListController from './list';
+import MapController from './map/map';
+import WayPoint from './gpx/types/way_point';
 
 let input = <HTMLInputElement>document.getElementById('gpx');
 

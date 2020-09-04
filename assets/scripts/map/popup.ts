@@ -1,6 +1,6 @@
-import WayPoint from '../gpx/types/way_point';
-import TemplateBuilder from '../template';
 import EditPopup from '../edit_popup';
+import TemplateBuilder from '../template';
+import WayPoint from '../gpx/types/way_point';
 
 class MapPopup {
 
