@@ -1,6 +1,7 @@
 import EditPopup from './edit_popup';
 import Icon from './icon';
 import WayPoint from './gpx/types/way_point';
+import GPX from "./gpx/types/gpx";
 
 class ListController {
 
@@ -8,8 +9,11 @@ class ListController {
 
     private groups: Record<string, HTMLElement> = {};
 
+    public itemUpdated: () => void = () => {};
+
     constructor(
         private container: HTMLElement,
+        private storage: GPX
     ) {
         this.wrapper = document.createElement('div');
 
@@ -30,6 +34,20 @@ class ListController {
         }
     }
 
+    public refresh(): void {
+        this.groups = {};
+
+        this.wrapper.remove();
+
+        this.wrapper = document.createElement('div');
+
+        this.container.append(this.wrapper);
+
+        this.storage.wpt.forEach((point: WayPoint): void => {
+            this.itemAdd(point);
+        });
+    }
+
     public itemAdd(item: WayPoint): void {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
         let icon = Icon.getIcon(item.extensions?.icon ?? null);
@@ -37,7 +55,7 @@ class ListController {
         let node = document.createElement('p');
         node.innerHTML = `* <i class="mdi mdi-${ icon }"></i> ${ item.name }`;
         node.onclick = (): void => {
-            (new EditPopup(item)).show();
+            (new EditPopup(item, this.itemUpdated)).show();
         };
 
         group.append(node);

@@ -6,9 +6,20 @@ import MapController from './map/map';
 import WayPoint from './gpx/types/way_point';
 
 let input = <HTMLInputElement>document.getElementById('gpx');
+let storage = new GPX({
+    wpt: [],
+});
 
-let map = new MapController(<HTMLElement>document.getElementById('map'));
-let list = new ListController(<HTMLElement>document.getElementById('list'));
+let map = new MapController(<HTMLElement>document.getElementById('map'), storage);
+let list = new ListController(<HTMLElement>document.getElementById('list'), storage);
+
+function updated() {
+    map.refresh();
+    list.refresh();
+}
+
+map.pointUpdated = updated;
+list.itemUpdated = updated;
 
 new FileReaderController(input, (content: string | null) => {
     if (content === null) {
@@ -22,16 +33,27 @@ new FileReaderController(input, (content: string | null) => {
     }
 
     gpx.wpt.forEach((point: WayPoint): void => {
-        console.log(point);
+        storage.wpt.push(point);
         map.pointAdd(point);
         list.itemAdd(point);
     });
 
     let download = <HTMLElement>document.getElementById('download');
-
+    download.style.removeProperty('display');
     download.onclick = function(): void {
-        let data = `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(<GPX>gpx)) }`;
+        storage.wpt.sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+        });
+        let data = `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(storage)) }`;
 
         download.setAttribute('href', data);
+    };
+
+    let clear = <HTMLElement>document.getElementById('clear');
+    clear.style.removeProperty('display');
+    clear.onclick = function(): void {
+        if (confirm('Are you sure?')) {
+            map.clear();
+        }
     };
 });

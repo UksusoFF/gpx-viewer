@@ -7,7 +7,8 @@ class MapPopup {
     public popup: HTMLElement;
 
     constructor(
-        private point: WayPoint
+        private point: WayPoint,
+        private pointUpdated: () => void = () => {}
     ) {
         this.popup = (new TemplateBuilder(
             'map-popup-template',
@@ -18,7 +19,7 @@ class MapPopup {
 
         for (const button of this.popup.querySelectorAll('[data-action="edit"]')) {
             button.addEventListener('click', () => {
-                (new EditPopup(this.point)).show();
+                (new EditPopup(this.point, this.pointUpdated)).show();
             });
         }
     }

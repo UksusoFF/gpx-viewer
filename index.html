@@ -71,12 +71,22 @@
     <div id="controls">
         <input id="gpx" type="file" accept="application/gpx+xml" class="d-none">
         <div class="btn-group" style="width: 100%;">
-            <label for="gpx" class="btn btn-secondary mb-0" style="width: 50%;">
-                <i class="mdi mdi-upload"></i> Upload
+            <label for="gpx" class="btn btn-secondary mb-0" style="width: 33.3%;">
+                <i class="mdi mdi-folder-open"></i>
             </label>
-            <a id="download" href="#" download="MyTracks.gpx" target="_blank" class="btn btn-secondary mb-0"
-               style="width: 50%;">
-                <i class="mdi mdi-download"></i> Download
+            <a id="download"
+               href="#"
+               download="favorites.gpx"
+               target="_blank"
+               class="btn btn-secondary mb-0"
+               style="width: 33.3%; display: none;">
+                <i class="mdi mdi-download"></i>
+            </a>
+            <a id="clear"
+               href="#"
+               class="btn btn-secondary mb-0"
+               style="width: 33.3%; display: none;">
+                <i class="mdi mdi-delete-empty"></i>
             </a>
         </div>
     </div>

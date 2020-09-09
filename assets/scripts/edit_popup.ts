@@ -11,6 +11,7 @@ class EditPopup {
 
     constructor(
         private point: WayPoint,
+        private pointUpdated: () => void = () => {}
     ) {
         this.$modal = $((new TemplateBuilder(
             'edit-popup-template',
@@ -66,6 +67,8 @@ class EditPopup {
         }
 
         this.point.extensions.icon = String(this.$modal.find('[name="edit-popup-icon"]:checked').val());
+
+        this.pointUpdated();
     }
 
     public show(): void {
