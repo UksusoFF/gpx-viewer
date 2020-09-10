@@ -1,7 +1,7 @@
 import FileReaderController from './file_reader';
 import GPX from './gpx/types/gpx';
 import GPXTool from './gpx/gpx';
-import ListController from './list';
+import ListController from './list/list';
 import MapController from './map/map';
 import WayPoint from './gpx/types/way_point';
 

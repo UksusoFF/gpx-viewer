@@ -15,6 +15,28 @@
             </span>
         </div>
     </template>
+    <template type="javascript/template" id="list-point-template">
+        <div class="list-point">
+            <div class="d-flex">
+                <div class="p-2 flex-grow-1 text-nowrap text-truncate">
+                    <span class="btn btn-light btn-sm">
+                        <i class="mdi mdi-{{ icon }}"></i>
+                    </span>
+                    <span class="list-point-name" title="{{ point.name }}">{{ point.name }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="btn btn-secondary btn-sm" data-action="target">
+                        <i class="mdi mdi-target"></i>
+                    </span>
+                </div>
+                <div class="p-2">
+                    <span class="btn btn-secondary btn-sm" data-action="edit">
+                        <i class="mdi mdi-pencil"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </template>
     <template type="javascript/template" id="edit-popup-template">
         <form class="modal fade" tabindex="-1">
             <div class="modal-dialog">

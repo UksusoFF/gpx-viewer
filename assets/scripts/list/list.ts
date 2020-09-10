@@ -1,7 +1,9 @@
-import EditPopup from './edit_popup';
-import Icon from './icon';
-import WayPoint from './gpx/types/way_point';
-import GPX from "./gpx/types/gpx";
+import EditPopup from '../edit_popup';
+import GPX from "../gpx/types/gpx";
+import Icon from '../icon';
+import TemplateBuilder from "../template";
+import WayPoint from '../gpx/types/way_point';
+import ListPoint from "./point";
 
 class ListController {
 
@@ -50,15 +52,8 @@ class ListController {
 
     public itemAdd(item: WayPoint): void {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
-        let icon = Icon.getIcon(item.extensions?.icon ?? null);
 
-        let node = document.createElement('p');
-        node.innerHTML = `* <i class="mdi mdi-${ icon }"></i> ${ item.name }`;
-        node.onclick = (): void => {
-            (new EditPopup(item, this.itemUpdated)).show();
-        };
-
-        group.append(node);
+        group.append((new ListPoint(item, this.itemUpdated).item));
     }
 }
 
