@@ -1,9 +1,6 @@
 /// <reference path="../@types/leaflet-plugins.d.ts"/>
 
 import * as L from 'leaflet';
-import {
-    Layer, LeafletMouseEvent, Map,
-} from 'leaflet';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
@@ -50,7 +47,7 @@ class MapController {
 
         L.control.layers(this.layers).addTo(this.map);
 
-        this.map.on('contextmenu', (e: LeafletMouseEvent) => {
+        this.map.on('contextmenu', (e: L.LeafletMouseEvent) => {
             e.originalEvent.preventDefault();
 
             this.pointNew(e.latlng.lat, e.latlng.lng);
@@ -74,7 +71,7 @@ class MapController {
     }
 
     public refresh(): void {
-        this.map.eachLayer((layer: Layer) => {
+        this.map.eachLayer((layer: L.Layer) => {
             if (layer instanceof L.Marker) {
                 layer.remove();
             }
@@ -90,7 +87,7 @@ class MapController {
     public clear(): void {
         this.storage.wpt = [];
 
-        this.map.eachLayer((layer: Layer) => {
+        this.map.eachLayer((layer: L.Layer) => {
             if (layer instanceof L.Marker) {
                 layer.remove();
             }
@@ -129,7 +126,7 @@ class MapController {
             }),
         });
 
-        marker.on('dragend', function() {
+        marker.on('dragend', () => {
             if (!confirm('Save new position?')) {
                 point.$.lat = ll.lat;
                 point.$.lon = ll.lng;
