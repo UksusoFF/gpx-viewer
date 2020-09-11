@@ -78,9 +78,7 @@ class MapController {
         });
 
         this.storage.wpt.forEach((point: WayPoint): void => {
-            if (!point.isDeleted) {
-                this.pointAdd(point);
-            }
+            this.pointAdd(point);
         });
     }
 
@@ -113,6 +111,10 @@ class MapController {
     }
 
     public pointAdd(point: WayPoint) {
+        if (point.isDeleted) {
+            return;
+        }
+
         let ll = new L.LatLng(point.$.lat, point.$.lon);
 
         let marker = new L.Marker(ll, {
@@ -128,12 +130,13 @@ class MapController {
 
         marker.on('dragend', () => {
             if (!confirm('Save new position?')) {
-                point.$.lat = ll.lat;
-                point.$.lon = ll.lng;
                 marker.setLatLng(ll);
             } else {
                 ll = marker.getLatLng();
             }
+
+            point.$.lat = ll.lat;
+            point.$.lon = ll.lng;
         });
 
         marker

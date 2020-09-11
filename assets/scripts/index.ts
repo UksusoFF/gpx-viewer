@@ -27,7 +27,7 @@ new FileReaderController(input, (content: string | null) => {
     gpx.wpt.forEach((point: WayPoint): void => {
         storage.wpt.push(point);
         map.pointAdd(point);
-        list.itemAdd(point);
+        list.pointAdd(point);
     });
 
     let download = <HTMLElement>document.getElementById('download');
@@ -36,9 +36,11 @@ new FileReaderController(input, (content: string | null) => {
         storage.wpt.sort(function(a: WayPoint, b: WayPoint) {
             return a.name.localeCompare(b.name);
         });
-        let data = `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(storage)) }`;
 
-        download.setAttribute('href', data);
+        download.setAttribute(
+            'href',
+            `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(storage)) }`
+        );
     };
 
     let clear = <HTMLElement>document.getElementById('clear');

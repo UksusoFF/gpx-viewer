@@ -59,16 +59,19 @@ class ListController {
         this.container.append(this.wrapper);
 
         this.storage.wpt.forEach((point: WayPoint): void => {
-            if (!point.isDeleted) {
-                this.itemAdd(point);
-            }
+            this.pointAdd(point);
         });
     }
 
-    public itemAdd(item: WayPoint): void {
-        let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
+    public pointAdd(point: WayPoint): void {
+        if (point.isDeleted) {
+            return;
+        }
 
-        group.append((new ListPoint(item).element));
+        let group = this.groupGet(typeof point.type !== 'undefined' ? point.type : 'Unsorted');
+
+        group.append((new ListPoint(point).element));
+
     }
 }
 
