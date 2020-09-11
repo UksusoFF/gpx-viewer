@@ -51,6 +51,7 @@ class PointEditDialog {
 
     private fill(): void {
         this.$modal.find('[name=edit-popup-name]').val(this.point.name);
+        this.$modal.find('[name=edit-popup-type]').val(this.point.type);
 
         let icon = this.point.extensions?.icon ?? null;
 
@@ -63,6 +64,7 @@ class PointEditDialog {
 
     private save(): void {
         this.point.name = String(this.$modal.find('[name=edit-popup-name]').val());
+        this.point.type = String(this.$modal.find('[name=edit-popup-type]').val());
 
         if (typeof this.point.extensions === 'undefined') {
             this.point.extensions = {};
