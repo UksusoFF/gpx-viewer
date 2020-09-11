@@ -1,4 +1,4 @@
-import EditPopup from '../edit_popup';
+import PointEditDialog from '../point_edit_dialog';
 import TemplateBuilder from '../template';
 import WayPoint from '../gpx/types/way_point';
 import Icon from '../icon';
@@ -23,7 +23,7 @@ export class ListPoint {
 
         for (const button of this.element.querySelectorAll('[data-action="edit"]')) {
             button.addEventListener('click', () => {
-                (new EditPopup(this.point)).show();
+                (new PointEditDialog(this.point)).show();
             });
         }
 

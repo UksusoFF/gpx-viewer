@@ -9,7 +9,7 @@ import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
 
 import Icon from '../icon';
-import MapPopup from './popup';
+import MapPoint from './point';
 import WayPoint from '../gpx/types/way_point';
 import GPX from '../gpx/types/gpx';
 import {
@@ -139,7 +139,7 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup((new MapPopup(point)).popup);
+            .bindPopup((new MapPoint(point)).popup);
     }
 
     public panTo(point: WayPoint) {

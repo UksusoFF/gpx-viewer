@@ -8,7 +8,7 @@ import {
     bus, pointUpdated,
 } from './events';
 
-class EditPopup {
+class PointEditDialog {
 
     public $modal: JQuery;
 
@@ -80,4 +80,4 @@ class EditPopup {
     }
 }
 
-export default EditPopup;
+export default PointEditDialog;

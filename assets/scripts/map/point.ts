@@ -1,8 +1,8 @@
-import EditPopup from '../edit_popup';
+import PointEditDialog from '../point_edit_dialog';
 import TemplateBuilder from '../template';
 import WayPoint from '../gpx/types/way_point';
 
-class MapPopup {
+class MapPoint {
 
     public popup: HTMLElement;
 
@@ -10,7 +10,7 @@ class MapPopup {
         private point: WayPoint,
     ) {
         this.popup = (new TemplateBuilder(
-            'map-popup-template',
+            'map-point-template',
             {
                 point: point,
             }
@@ -18,10 +18,10 @@ class MapPopup {
 
         for (const button of this.popup.querySelectorAll('[data-action="edit"]')) {
             button.addEventListener('click', () => {
-                (new EditPopup(this.point)).show();
+                (new PointEditDialog(this.point)).show();
             });
         }
     }
 }
 
-export default MapPopup;
+export default MapPoint;
