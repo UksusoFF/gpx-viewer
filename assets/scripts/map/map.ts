@@ -117,6 +117,10 @@ class MapController {
             .addTo(this.map)
             .bindPopup((new MapPopup(point, this.pointUpdated)).popup);
     }
+
+    public panTo(point: WayPoint) {
+        this.map.panTo(new L.LatLng(point.$.lat, point.$.lon));
+    }
 }
 
 export default MapController;

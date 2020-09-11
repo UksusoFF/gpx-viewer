@@ -13,6 +13,8 @@ class ListController {
 
     public itemUpdated: () => void = () => {};
 
+    public itemTargeted: (point: WayPoint) => void = () => {};
+
     constructor(
         private container: HTMLElement,
         private storage: GPX
@@ -53,7 +55,11 @@ class ListController {
     public itemAdd(item: WayPoint): void {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
 
-        group.append((new ListPoint(item, this.itemUpdated).item));
+        group.append((new ListPoint(
+            item,
+            this.itemUpdated,
+            this.itemTargeted,
+        ).item));
     }
 }
 

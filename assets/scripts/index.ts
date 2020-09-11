@@ -20,6 +20,9 @@ function updated() {
 
 map.pointUpdated = updated;
 list.itemUpdated = updated;
+list.itemTargeted = function(point) {
+    map.panTo(point);
+}
 
 new FileReaderController(input, (content: string | null) => {
     if (content === null) {
