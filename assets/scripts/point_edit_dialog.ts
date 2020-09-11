@@ -47,6 +47,12 @@ class PointEditDialog {
 
             this.$modal.modal('hide');
         });
+
+        this.$modal.find('[data-action="delete"]').on('click', () => {
+            this.delete();
+
+            this.$modal.modal('hide');
+        })
     }
 
     private fill(): void {
@@ -71,6 +77,14 @@ class PointEditDialog {
         }
 
         this.point.extensions.icon = String(this.$modal.find('[name="edit-popup-icon"]:checked').val());
+
+        bus.publish(pointUpdated({
+            point: this.point,
+        }));
+    }
+
+    private delete(): void {
+        this.point.markAsDeleted();
 
         bus.publish(pointUpdated({
             point: this.point,

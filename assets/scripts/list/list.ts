@@ -59,7 +59,9 @@ class ListController {
         this.container.append(this.wrapper);
 
         this.storage.wpt.forEach((point: WayPoint): void => {
-            this.itemAdd(point);
+            if (!point.isDeleted) {
+                this.itemAdd(point);
+            }
         });
     }
 

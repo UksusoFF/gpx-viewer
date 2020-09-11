@@ -81,7 +81,9 @@ class MapController {
         });
 
         this.storage.wpt.forEach((point: WayPoint): void => {
-            this.pointAdd(point);
+            if (!point.isDeleted) {
+                this.pointAdd(point);
+            }
         });
     }
 

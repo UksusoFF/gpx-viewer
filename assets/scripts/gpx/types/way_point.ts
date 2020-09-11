@@ -1,6 +1,9 @@
 import Link from './link';
 
 export default class WayPoint {
+
+    private static readonly DELETED_MARK = 'DELETED';
+
     public $: {
         lat: number;
         lon: number;
@@ -75,5 +78,13 @@ export default class WayPoint {
                 return new Link(l);
             });
         }
+    }
+
+    public get isDeleted(): boolean {
+        return this.type === WayPoint.DELETED_MARK;
+    }
+
+    public markAsDeleted(): void {
+        this.type = WayPoint.DELETED_MARK;
     }
 }
