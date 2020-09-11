@@ -13,17 +13,6 @@ let storage = new GPX({
 let map = new MapController(<HTMLElement>document.getElementById('map'), storage);
 let list = new ListController(<HTMLElement>document.getElementById('list'), storage);
 
-function updated() {
-    map.refresh();
-    list.refresh();
-}
-
-map.pointUpdated = updated;
-list.itemUpdated = updated;
-list.itemTargeted = function(point) {
-    map.panTo(point);
-}
-
 new FileReaderController(input, (content: string | null) => {
     if (content === null) {
         throw new Error('Can\'t read input');
@@ -44,7 +33,7 @@ new FileReaderController(input, (content: string | null) => {
     let download = <HTMLElement>document.getElementById('download');
     download.style.removeProperty('display');
     download.onclick = function(): void {
-        storage.wpt.sort(function (a, b) {
+        storage.wpt.sort(function(a: WayPoint, b: WayPoint) {
             return a.name.localeCompare(b.name);
         });
         let data = `data:application/javascript;charset=utf-8,${ encodeURIComponent(GPXTool.build(storage)) }`;

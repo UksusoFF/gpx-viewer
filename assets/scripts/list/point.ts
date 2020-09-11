@@ -1,34 +1,37 @@
-import EditPopup from "../edit_popup";
+import EditPopup from '../edit_popup';
 import TemplateBuilder from '../template';
 import WayPoint from '../gpx/types/way_point';
-import Icon from "../icon";
+import Icon from '../icon';
+import {
+    bus, pointTargeted,
+} from '../events';
 
 export class ListPoint {
 
-    public item: HTMLElement;
+    public element: HTMLElement;
 
     constructor(
         private point: WayPoint,
-        private pointUpdated: () => void = () => {},
-        private pointTargeted: (point: WayPoint) => void = () => {},
     ) {
-        this.item = (new TemplateBuilder(
+        this.element = (new TemplateBuilder(
             'list-point-template',
             {
                 point: this.point,
                 icon: Icon.getIcon(this.point.extensions?.icon ?? null),
             }
-        )).element();
+        )).element;
 
-        for (const button of this.item.querySelectorAll('[data-action="edit"]')) {
+        for (const button of this.element.querySelectorAll('[data-action="edit"]')) {
             button.addEventListener('click', () => {
-                (new EditPopup(this.point, this.pointUpdated)).show();
+                (new EditPopup(this.point)).show();
             });
         }
 
-        for (const button of this.item.querySelectorAll('[data-action="target"]')) {
+        for (const button of this.element.querySelectorAll('[data-action="target"]')) {
             button.addEventListener('click', () => {
-                this.pointTargeted(this.point);
+                bus.publish(pointTargeted({
+                    point: this.point,
+                }));
             });
         }
     }

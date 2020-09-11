@@ -1,19 +1,18 @@
-import EditPopup from '../edit_popup';
-import GPX from "../gpx/types/gpx";
-import Icon from '../icon';
-import TemplateBuilder from "../template";
+import GPX from '../gpx/types/gpx';
 import WayPoint from '../gpx/types/way_point';
-import ListPoint from "./point";
+import ListPoint from './point';
+import {
+    bus, pointCreated, pointUpdated,
+} from '../events';
+import {
+    BusEvent,
+} from 'ts-bus/types';
 
 class ListController {
 
     private wrapper: HTMLElement;
 
     private groups: Record<string, HTMLElement> = {};
-
-    public itemUpdated: () => void = () => {};
-
-    public itemTargeted: (point: WayPoint) => void = () => {};
 
     constructor(
         private container: HTMLElement,
@@ -22,6 +21,18 @@ class ListController {
         this.wrapper = document.createElement('div');
 
         this.container.append(this.wrapper);
+
+        this.subscribe();
+    }
+
+    private subscribe(): void {
+        bus.subscribe(pointUpdated, (e: BusEvent) => {
+            this.refresh();
+        });
+
+        bus.subscribe(pointCreated, (e: BusEvent) => {
+            this.refresh();
+        });
     }
 
     private groupGet(name: string): HTMLElement {
@@ -55,11 +66,7 @@ class ListController {
     public itemAdd(item: WayPoint): void {
         let group = this.groupGet(typeof item.type !== 'undefined' ? item.type : 'Unsorted');
 
-        group.append((new ListPoint(
-            item,
-            this.itemUpdated,
-            this.itemTargeted,
-        ).item));
+        group.append((new ListPoint(item).element));
     }
 }
 

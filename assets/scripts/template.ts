@@ -11,13 +11,13 @@ class TemplateBuilder {
         this.template = (<HTMLElement>document.getElementById(this.id)).innerHTML;
     }
 
-    public element(): HTMLElement {
-        const html = new DOMParser().parseFromString(this.string(), 'text/html');
+    public get element(): HTMLElement {
+        const html = new DOMParser().parseFromString(this.string, 'text/html');
 
         return <HTMLElement>html.body.firstChild;
     }
 
-    public string(): string {
+    public get string(): string {
         return Mustache.render(this.template, this.data);
     }
 

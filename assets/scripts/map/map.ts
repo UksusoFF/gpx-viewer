@@ -1,7 +1,9 @@
 /// <reference path="../@types/leaflet-plugins.d.ts"/>
 
 import * as L from 'leaflet';
-import { LeafletMouseEvent, Map } from 'leaflet';
+import {
+    Layer, LeafletMouseEvent, Map,
+} from 'leaflet';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
@@ -9,14 +11,18 @@ import 'leaflet.awesome-markers';
 import Icon from '../icon';
 import MapPopup from './popup';
 import WayPoint from '../gpx/types/way_point';
-import GPX from "../gpx/types/gpx";
+import GPX from '../gpx/types/gpx';
+import {
+    bus, pointCreated, pointTargeted, pointUpdated,
+} from '../events';
+import {
+    BusEvent,
+} from 'ts-bus/types';
 
 class MapController {
     private map: L.Map;
 
     private layers: L.Control.LayersObject;
-
-    public pointUpdated: () => void = () => {};
 
     constructor(
         private container: HTMLElement,
@@ -47,16 +53,32 @@ class MapController {
         this.map.on('contextmenu', (e: LeafletMouseEvent) => {
             e.originalEvent.preventDefault();
 
-            this.pointNew(e.latlng.lat, e.latlng.lng)
+            this.pointNew(e.latlng.lat, e.latlng.lng);
+        });
+
+        this.subscribe();
+    }
+
+    private subscribe(): void {
+        bus.subscribe(pointUpdated, (e: BusEvent) => {
+            this.refresh();
+        });
+
+        bus.subscribe(pointCreated, (e: BusEvent) => {
+            this.refresh();
+        });
+
+        bus.subscribe(pointTargeted, (e: BusEvent) => {
+            this.panTo(e.payload.point);
         });
     }
 
     public refresh(): void {
-        this.map.eachLayer((layer) => {
+        this.map.eachLayer((layer: Layer) => {
             if (layer instanceof L.Marker) {
                 layer.remove();
             }
-        })
+        });
 
         this.storage.wpt.forEach((point: WayPoint): void => {
             this.pointAdd(point);
@@ -66,27 +88,29 @@ class MapController {
     public clear(): void {
         this.storage.wpt = [];
 
-        this.map.eachLayer((layer) => {
+        this.map.eachLayer((layer: Layer) => {
             if (layer instanceof L.Marker) {
                 layer.remove();
             }
-        })
+        });
     }
 
     private pointNew(lat: number, lon: number): void {
         let point = {
             $: {
                 lat: lat,
-                lon: lon
+                lon: lon,
             },
-            name: 'New point'
+            name: 'New point',
         } as WayPoint;
 
         this.storage.wpt.push(point);
 
         this.pointAdd(point);
 
-        this.pointUpdated();
+        bus.publish(pointCreated({
+            point: point,
+        }));
     }
 
     public pointAdd(point: WayPoint) {
@@ -115,7 +139,7 @@ class MapController {
 
         marker
             .addTo(this.map)
-            .bindPopup((new MapPopup(point, this.pointUpdated)).popup);
+            .bindPopup((new MapPopup(point)).popup);
     }
 
     public panTo(point: WayPoint) {

@@ -4,6 +4,9 @@ import 'bootstrap';
 import Icon from './icon';
 import TemplateBuilder from './template';
 import WayPoint from './gpx/types/way_point';
+import {
+    bus, pointUpdated,
+} from './events';
 
 class EditPopup {
 
@@ -11,7 +14,6 @@ class EditPopup {
 
     constructor(
         private point: WayPoint,
-        private pointUpdated: () => void = () => {}
     ) {
         this.$modal = $((new TemplateBuilder(
             'edit-popup-template',
@@ -27,7 +29,7 @@ class EditPopup {
                     };
                 }),
             }
-        )).string());
+        )).string);
 
         this.fill();
         this.bind();
@@ -68,7 +70,9 @@ class EditPopup {
 
         this.point.extensions.icon = String(this.$modal.find('[name="edit-popup-icon"]:checked').val());
 
-        this.pointUpdated();
+        bus.publish(pointUpdated({
+            point: this.point,
+        }));
     }
 
     public show(): void {
