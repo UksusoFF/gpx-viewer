@@ -64,6 +64,9 @@ class ListController {
     }
 
     public pointAdd(point: WayPoint): void {
+        let empty = <HTMLElement>document.getElementById('list-empty');
+        empty.style.setProperty('display', 'none');
+
         if (point.isDeleted) {
             return;
         }
