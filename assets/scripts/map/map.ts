@@ -4,13 +4,20 @@ import * as L from 'leaflet';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet.awesome-markers';
+import {
+    GeoSearchControl,
+    OpenStreetMapProvider,
+} from 'leaflet-geosearch';
 
 import Icon from '../icon';
 import MapPoint from './point';
 import WayPoint from '../gpx/types/way_point';
 import GPX from '../gpx/types/gpx';
 import {
-    bus, pointCreated, pointTargeted, pointUpdated,
+    bus,
+    pointCreated,
+    pointTargeted,
+    pointUpdated,
 } from '../events';
 import {
     BusEvent,
@@ -46,6 +53,23 @@ class MapController {
         });
 
         L.control.layers(this.layers).addTo(this.map);
+
+        this.map.addControl(new GeoSearchControl({
+            provider: new OpenStreetMapProvider(),
+            autoComplete: true,
+            autoCompleteDelay: 1005,
+            showMarker: true,
+            showPopup: true,
+            marker: {
+                icon: L.AwesomeMarkers.icon({
+                    icon: 'crosshairs',
+                    markerColor: 'red',
+                    prefix: 'mdi',
+                    iconColor: 'black',
+                }),
+                draggable: false,
+            },
+        }));
 
         this.map.on('contextmenu', (e: L.LeafletMouseEvent) => {
             e.originalEvent.preventDefault();
