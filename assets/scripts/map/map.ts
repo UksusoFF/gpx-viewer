@@ -117,13 +117,13 @@ class MapController {
     }
 
     private pointNew(lat: number, lon: number): void {
-        let point = {
+        let point = new WayPoint({
             $: {
                 lat: lat,
                 lon: lon,
             },
             name: 'New point',
-        } as WayPoint;
+        });
 
         this.storage.wpt.push(point);
 
