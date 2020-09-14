@@ -13,7 +13,7 @@ let storage = new GPX({
 let map = new MapController(<HTMLElement>document.getElementById('map'), storage);
 let list = new ListController(<HTMLElement>document.getElementById('list'), storage);
 
-new FileReaderController(input, (content: string | null) => {
+new FileReaderController(input, (content: string | null, name: string | null) => {
     if (content === null) {
         throw new Error('Can\'t read input');
     }
@@ -36,6 +36,8 @@ new FileReaderController(input, (content: string | null) => {
         storage.wpt.sort(function(a: WayPoint, b: WayPoint) {
             return a.name.localeCompare(b.name);
         });
+
+        download.setAttribute('download', name ?? 'favorites.gpx');
 
         download.setAttribute(
             'href',

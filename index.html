@@ -5,6 +5,11 @@
     <title>Title</title>
     <link rel="stylesheet" href="resources/styles/vendor.css">
     <link rel="stylesheet" href="resources/styles/app.css">
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            return "Are you sure?";
+        };
+    </script>
     <template type="javascript/template" id="map-point-template">
         <div class="map-point">
             {{ point.name }}<br/>
@@ -116,7 +121,6 @@
             </label>
             <a id="download"
                href="#"
-               download="favorites.gpx"
                target="_blank"
                class="btn btn-secondary mb-0"
                style="width: 33.3%; display: none;">

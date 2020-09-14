@@ -40,7 +40,7 @@ class ListController {
             return this.groups[name];
         } else {
             let group = document.createElement('div');
-            group.innerHTML = `<p class="group-title">${ name }</p>`;
+            group.innerHTML = `<p class="h5 text-center">${ name }</p>`;
 
             this.groups[name] = group;
             this.wrapper.append(group);
