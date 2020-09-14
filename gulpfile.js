@@ -42,6 +42,7 @@ function vendorStyles() {
             'node_modules/leaflet/dist/leaflet.css',
             'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css',
             'node_modules/leaflet-geosearch/dist/geosearch.css',
+            'node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.css',
         ])
         .pipe(concat('vendor.css'))
         .pipe(gulp.dest(`${path.target.dest}/styles`));

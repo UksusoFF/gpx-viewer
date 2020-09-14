@@ -3,6 +3,7 @@
 import * as L from 'leaflet';
 
 import 'leaflet-plugins/layer/tile/Yandex.js';
+import 'leaflet-sidebar-v2/js/leaflet-sidebar.js';
 import 'leaflet.awesome-markers';
 import {
     GeoSearchControl,
@@ -70,6 +71,13 @@ class MapController {
                 draggable: false,
             },
         }));
+
+        L.control.sidebar({
+            autopan: false,
+            closeButton: false,
+            container: 'sidebar',
+            position: 'left',
+        }).addTo(this.map);
 
         this.map.on('contextmenu', (e: L.LeafletMouseEvent) => {
             e.originalEvent.preventDefault();
