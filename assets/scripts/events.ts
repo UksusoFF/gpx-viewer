@@ -1,7 +1,6 @@
 import WayPoint from './gpx/types/way_point';
-import {
-    EventBus, createEventDefinition,
-} from 'ts-bus';
+
+import { EventBus, createEventDefinition } from 'ts-bus';
 
 export const bus = new EventBus();
 

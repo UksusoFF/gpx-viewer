@@ -1,10 +1,8 @@
+import Icon from '../icon';
 import PointEditDialog from '../point_edit_dialog';
 import TemplateBuilder from '../template';
 import WayPoint from '../gpx/types/way_point';
-import Icon from '../icon';
-import {
-    bus, pointTargeted,
-} from '../events';
+import { bus, pointTargeted } from '../events';
 
 export class ListPoint {
 

@@ -1,28 +1,20 @@
+/// <reference path="../@types/leaflet-control-geocoder.d.ts"/>
 /// <reference path="../@types/leaflet-plugins.d.ts"/>
+/// <reference path="../@types/leaflet-sidebar.d.ts"/>
 
 import * as L from 'leaflet';
 
+import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet-sidebar-v2/js/leaflet-sidebar.js';
 import 'leaflet.awesome-markers';
-import {
-    GeoSearchControl,
-    OpenStreetMapProvider,
-} from 'leaflet-geosearch';
 
+import GPX from '../gpx/types/gpx';
 import Icon from '../icon';
 import MapPoint from './point';
 import WayPoint from '../gpx/types/way_point';
-import GPX from '../gpx/types/gpx';
-import {
-    bus,
-    pointCreated,
-    pointTargeted,
-    pointUpdated,
-} from '../events';
-import {
-    BusEvent,
-} from 'ts-bus/types';
+import { bus, pointCreated, pointTargeted, pointUpdated } from '../events';
+import { BusEvent } from 'ts-bus/types';
 
 class MapController {
     private map: L.Map;
@@ -55,21 +47,11 @@ class MapController {
 
         L.control.layers(this.layers).addTo(this.map);
 
-        this.map.addControl(new GeoSearchControl({
-            provider: new OpenStreetMapProvider(),
-            autoComplete: true,
-            autoCompleteDelay: 1005,
-            showMarker: true,
-            showPopup: true,
-            marker: {
-                icon: L.AwesomeMarkers.icon({
-                    icon: 'crosshairs',
-                    markerColor: 'red',
-                    prefix: 'mdi',
-                    iconColor: 'black',
-                }),
-                draggable: false,
-            },
+        this.map.addControl((new L.Control.Geocoder({
+            defaultMarkGeocode: false,
+            position: 'topleft',
+        })).on('markgeocode', (e: L.Control.GeocoderMarkEvent) => {
+            this.map.fitBounds(e.geocode.bbox);
         }));
 
         L.control.sidebar({

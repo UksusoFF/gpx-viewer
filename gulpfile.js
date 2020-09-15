@@ -41,7 +41,7 @@ function vendorStyles() {
         .src([
             'node_modules/leaflet/dist/leaflet.css',
             'node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css',
-            'node_modules/leaflet-geosearch/dist/geosearch.css',
+            'node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css',
             'node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.css',
         ])
         .pipe(concat('vendor.css'))
@@ -71,7 +71,8 @@ function vendorImages() {
     return gulp
         .src([
             'node_modules/leaflet/dist/images/*',
-            'node_modules/leaflet.awesome-markers/dist/images/*'
+            'node_modules/leaflet.awesome-markers/dist/images/*',
+            'node_modules/leaflet-control-geocoder/dist/images/*',
         ])
         .pipe(gulp.dest(`${path.target.dest}/styles/images`));
 }

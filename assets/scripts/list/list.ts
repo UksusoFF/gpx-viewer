@@ -1,12 +1,8 @@
 import GPX from '../gpx/types/gpx';
-import WayPoint from '../gpx/types/way_point';
 import ListPoint from './point';
-import {
-    bus, pointCreated, pointUpdated,
-} from '../events';
-import {
-    BusEvent,
-} from 'ts-bus/types';
+import WayPoint from '../gpx/types/way_point';
+import { bus, pointCreated, pointUpdated } from '../events';
+import { BusEvent } from 'ts-bus/types';
 
 class ListController {
 

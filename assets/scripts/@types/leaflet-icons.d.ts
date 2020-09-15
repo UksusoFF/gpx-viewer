@@ -3,6 +3,7 @@ import * as Leaflet from 'leaflet';
 declare module 'leaflet' {
 
     namespace AwesomeMarkers {
+
         interface AwesomeMarkersIconOptions extends BaseIconOptions {
             icon?: string;
             prefix?: 'fa' | 'glyphicon' | 'mdi';
