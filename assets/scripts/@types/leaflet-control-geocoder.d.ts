@@ -3,10 +3,9 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
 
     namespace Control {
-        interface GeocoderOptions {
+        interface GeocoderOptions extends L.ControlOptions {
             collapsed?: boolean
             expand?: 'touch' | 'click' | 'hover'
-            position?: L.ControlPosition
             placeholder?: string
             errorMessage?: string
             iconLabel?: string
