@@ -2,9 +2,18 @@
     "name": "gpx-viewer",
     "version": "1.0.0",
     "description": "Simple GPX Viewer",
+    "main": "main.js",
+    "build": {
+        "mac": {
+            "identity": null
+        }
+    },
     "scripts": {
         "build": "node_modules/gulp/bin/gulp.js",
-        "cs:fix": "node_modules/eslint/bin/eslint.js assets/scripts --fix --ext .ts"
+        "cs:fix": "node_modules/eslint/bin/eslint.js assets/scripts --fix --ext .ts",
+        "start": "node_modules/electron/cli.js .",
+        "pack": "node_modules/electron-builder/out/cli/cli.js --dir",
+        "dist": "node_modules/electron-builder/out/cli/cli.js"
     },
     "private": true,
     "config": {
@@ -61,6 +70,8 @@
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.0.1",
         "@typescript-eslint/parser": "^4.0.1",
+        "electron": "^10.1.2",
+        "electron-builder": "^22.8.0",
         "eslint": "^7.8.1",
         "eslint-config-google": "^0.14.0"
     }
