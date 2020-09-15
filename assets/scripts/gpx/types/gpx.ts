@@ -1,10 +1,8 @@
 import Metadata from './metadata';
-import WayPoint from './way_point';
 import Route from './route';
 import Track from './track';
-import {
-    removeEmpty,
-} from '../utils';
+import WayPoint from './way_point';
+import { removeEmpty } from '../utils';
 
 const defaultAttributes = {
     'version': '1.1',

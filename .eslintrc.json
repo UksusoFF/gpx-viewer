@@ -36,7 +36,12 @@
         "no-trailing-spaces": "warn",
         "no-var": "off",
         "no-whitespace-before-property": "warn",
-        "object-curly-newline": [ "warn", { "minProperties": 1 } ],
+        "object-curly-newline": [ "warn", {
+            "ObjectExpression": { "minProperties": 1 },
+            "ObjectPattern": { "minProperties": 1 },
+            "ImportDeclaration": "never",
+            "ExportDeclaration": "never"
+        } ],
         "object-property-newline": "warn",
         "object-shorthand": [ "warn", "never" ],
         "prefer-const": "off",

@@ -1,8 +1,7 @@
 import * as xml2js from 'xml2js';
+
 import GPX from './types/gpx';
-import {
-    allDatesToISOString,
-} from './utils';
+import { allDatesToISOString } from './utils';
 
 export default class GPXTool {
     static ROOT_NAME = 'gpx';

@@ -4,9 +4,7 @@ import 'bootstrap';
 import Icon from './icon';
 import TemplateBuilder from './template';
 import WayPoint from './gpx/types/way_point';
-import {
-    bus, pointUpdated,
-} from './events';
+import { bus, pointUpdated } from './events';
 
 class PointEditDialog {
 

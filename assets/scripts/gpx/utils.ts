@@ -26,7 +26,4 @@ function allDatesToISOString(obj: any): void {
     });
 }
 
-export {
-    removeEmpty,
-    allDatesToISOString,
-};
+export { removeEmpty, allDatesToISOString };
