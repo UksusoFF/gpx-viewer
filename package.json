@@ -57,6 +57,7 @@
         "leaflet-plugins": "^3.3.1",
         "leaflet-sidebar-v2": "^3.2.3",
         "leaflet.awesome-markers": "^2.0.5",
+        "leaflet.smooth_marker_bouncing": "^2.0.0",
         "mustache": "^4.0.1",
         "popper.js": "^1.16.1",
         "slugify": "^1.4.5",

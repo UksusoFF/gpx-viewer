@@ -1,3 +1,4 @@
+/// <reference path="../@types/leaflet-bounce.d.ts"/>
 /// <reference path="../@types/leaflet-control-geocoder.d.ts"/>
 /// <reference path="../@types/leaflet-plugins.d.ts"/>
 /// <reference path="../@types/leaflet-sidebar.d.ts"/>
@@ -7,6 +8,7 @@ import * as L from 'leaflet';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-plugins/layer/tile/Yandex.js';
 import 'leaflet-sidebar-v2/js/leaflet-sidebar.js';
+import 'leaflet.smooth_marker_bouncing/dist/bundle.js';
 import 'leaflet.awesome-markers';
 
 import GPX from '../gpx/types/gpx';
@@ -20,6 +22,8 @@ class MapController {
     private map: L.Map;
 
     private layers: L.Control.LayersObject;
+
+    private markers: L.Marker[] = [];
 
     constructor(
         private container: HTMLElement,
@@ -153,13 +157,35 @@ class MapController {
             point.$.lon = ll.lng;
         });
 
+        this.markers.push(marker);
+
         marker
             .addTo(this.map)
             .bindPopup((new MapPoint(point)).popup);
     }
 
     public panTo(point: WayPoint) {
-        this.map.panTo(new L.LatLng(point.$.lat, point.$.lon));
+        let target = new L.LatLng(point.$.lat, point.$.lon);
+
+        let onMoveEnd = (() => {
+            this.markers.forEach((marker: L.Marker) => {
+                let latLng = marker.getLatLng();
+
+                if (String(latLng.lat) === String(point.$.lat) && String(latLng.lng) === String(point.$.lon)) {
+                    marker
+                        .setBouncingOptions({
+                            exclusive: true,
+                        })
+                        .bounce(3);
+                }
+            });
+
+            this.map.off('moveend', onMoveEnd);
+        });
+
+        this.map.on('moveend', onMoveEnd);
+
+        this.map.panTo(target);
     }
 }
 
