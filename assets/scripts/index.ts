@@ -50,6 +50,8 @@ new FileReaderController(input, (content: string | null, name: string | null) =>
     clear.onclick = function(): void {
         if (confirm('Are you sure?')) {
             map.clear();
+            map.refresh();
+            list.refresh();
         }
     };
 });

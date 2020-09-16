@@ -21,6 +21,8 @@ import { BusEvent } from 'ts-bus/types';
 class MapController {
     private map: L.Map;
 
+    private sidebar: L.SidebarControl;
+
     private layers: L.Control.LayersObject;
 
     private markers: L.Marker[] = [];
@@ -58,12 +60,14 @@ class MapController {
             this.map.fitBounds(e.geocode.bbox);
         }));
 
-        L.control.sidebar({
+        this.sidebar = L.control.sidebar({
             autopan: false,
             closeButton: false,
             container: 'sidebar',
             position: 'left',
-        }).addTo(this.map);
+        });
+
+        this.sidebar.addTo(this.map);
 
         this.map.on('contextmenu', (e: L.LeafletMouseEvent) => {
             e.originalEvent.preventDefault();
@@ -132,6 +136,8 @@ class MapController {
         if (point.isDeleted) {
             return;
         }
+
+        this.sidebar.open('home');
 
         let ll = new L.LatLng(point.$.lat, point.$.lon);
 

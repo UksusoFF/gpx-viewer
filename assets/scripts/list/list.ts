@@ -57,20 +57,29 @@ class ListController {
         this.storage.wpt.forEach((point: WayPoint): void => {
             this.pointAdd(point);
         });
+
+        this.emptyMessageStateSync();
     }
 
     public pointAdd(point: WayPoint): void {
-        let empty = <HTMLElement>document.getElementById('list-empty');
-        empty.style.setProperty('display', 'none');
-
         if (point.isDeleted) {
             return;
         }
 
-        let group = this.groupGet(typeof point.type !== 'undefined' ? point.type : 'Unsorted');
+        this.emptyMessageStateSync();
+
+        let group = this.groupGet(point.type ?? 'Unsorted');
 
         group.append((new ListPoint(point).element));
+    }
 
+    private emptyMessageStateSync(): void {
+        let visible = !(this.storage.wpt.some((point: WayPoint) => {
+            return !point.isDeleted;
+        }));
+
+        let empty = <HTMLElement>document.getElementById('list-empty');
+        empty.style.setProperty('display', visible ? 'initial' : 'none');
     }
 }
 

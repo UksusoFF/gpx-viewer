@@ -14,7 +14,7 @@ class Icon {
     static getIcon(key: string):string {
         let icon = IconMap[key];
 
-        return typeof icon !== 'undefined' ? icon : IconMap['special_star'];
+        return icon ?? IconMap['special_star'];
     }
 
     static getAll(): Record<string, string> {

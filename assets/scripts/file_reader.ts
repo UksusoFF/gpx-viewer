@@ -6,7 +6,7 @@ class FileReaderController {
     ) {
         this.input.onchange = (): void => {
             let file = this.input.files !== null && this.input.files[0] !== null ? this.input.files[0] : null;
-            let name = typeof file?.name !== 'undefined' ? file?.name : null;
+            let name = file?.name ?? null;
 
             if (file !== null) {
                 let reader = new FileReader();
