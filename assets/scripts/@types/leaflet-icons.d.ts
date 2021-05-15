@@ -1,10 +1,10 @@
-import * as Leaflet from 'leaflet';
+import * as L from 'leaflet';
 
 declare module 'leaflet' {
 
     namespace AwesomeMarkers {
 
-        interface AwesomeMarkersIconOptions extends BaseIconOptions {
+        interface AwesomeMarkersIconOptions extends L.BaseIconOptions {
             icon?: string;
             prefix?: 'fa' | 'glyphicon' | 'mdi';
             markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue';
@@ -14,7 +14,7 @@ declare module 'leaflet' {
 
         function icon(options: AwesomeMarkersIconOptions): Icon;
 
-        class Icon extends Leaflet.Icon<AwesomeMarkersIconOptions> {
+        class Icon extends L.Icon<AwesomeMarkersIconOptions> {
             constructor(options?: AwesomeMarkersIconOptions);
         }
     }
